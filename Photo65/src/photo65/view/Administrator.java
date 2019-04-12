@@ -51,7 +51,7 @@ public class Administrator implements Initializable {
 	@FXML
 	private void on_logout(ActionEvent event) throws IOException{
 		FXMLLoader loader= new FXMLLoader(); 
-		loader.setLocation(photo65.Photos.class.getResource("view/loginPageadmin.fxml")); 
+		loader.setLocation(photo65.Photos.class.getResource("view/loginPage.fxml")); 
 		Scene scene= new Scene(loader.load()); 
 		Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow(); 
 		primaryStage.setScene(scene);  

@@ -21,6 +21,7 @@ import photo65.Photos;
 
 
 
+
 /***
  * Controller class for loginPage.fxml
  * @author Mitch Lew
@@ -69,6 +70,15 @@ public class Login{
 		}else {
 			for(int i=0; i<Administrator.observe_list.size(); i++){
 				if(Administrator.observe_list.get(i).username.equals(name)){
+					AlbumDirectory.user= Administrator.observe_list.get(i); 
+					if(!(Administrator.observe_list.get(i).albums==null)){
+						AlbumDirectory.useralbums= FXCollections.observableArrayList(Administrator.observe_list.get(i).albums);  
+					}
+					else {
+						AlbumDirectory.useralbums = FXCollections.observableArrayList();
+						
+					}
+					//AlbumDirectory.user = Administrator.observe_list.get(i);
 					SceneController.viewAlbumDirectory();
 //					MainPage.user= Administrator.observe_list.get(i); 
 //					if(!(Administrator.observe_list.get(i).albums==null)){

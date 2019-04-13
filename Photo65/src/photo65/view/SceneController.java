@@ -14,6 +14,7 @@ import photo65.view.Login;
 public class SceneController {
 	public static Stage primaryStage;
 	private AnchorPane mainLayout;
+	//public static Users currentUser;
 	
 	public static void viewLogin() throws IOException
 	{

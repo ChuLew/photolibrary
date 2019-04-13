@@ -8,6 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import photo65.view.SceneController;
 
+
 public class Photos extends Application {
 	private Stage primaryStage;
 	private AnchorPane mainLayout;

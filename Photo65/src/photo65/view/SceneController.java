@@ -44,7 +44,7 @@ public class SceneController {
 		loader.setLocation(Photos.class.getResource("view/albumDirectory.fxml"));
 		AnchorPane root = (AnchorPane)loader.load();
 		AlbumDirectory AlbDirController = loader.getController();
-		AlbDirController.start(primaryStage);
+		AlbDirController.start(primaryStage);// cause of problem
 		Scene scene = new Scene(root);		
 		primaryStage.setScene(scene);
 		primaryStage.show(); 

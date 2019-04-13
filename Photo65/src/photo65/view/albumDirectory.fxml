@@ -18,7 +18,7 @@
                </font>
             </Text>
             <Button fx:id="createAlbumBtn" layoutX="504.0" layoutY="76.0" mnemonicParsing="false" onAction="#addAlbum" prefHeight="111.0" prefWidth="121.0" text="Create Album" />
-            <Button fx:id="renameAlbumBtn" layoutX="635.0" layoutY="76.0" mnemonicParsing="false" prefHeight="111.0" prefWidth="121.0" text="Rename Album" />
+            <Button fx:id="renameAlbumBtn" layoutX="635.0" layoutY="76.0" mnemonicParsing="false" onAction="#rename" prefHeight="111.0" prefWidth="121.0" text="Rename Album" />
             <Button fx:id="deleteAlbumBtn" layoutX="504.0" layoutY="212.0" mnemonicParsing="false" onAction="#deleteAlbum" prefHeight="111.0" prefWidth="121.0" text="Delete Album" />
             <Button fx:id="openAlbumBtn" layoutX="635.0" layoutY="212.0" mnemonicParsing="false" prefHeight="111.0" prefWidth="121.0" text="Open Album" />
             <TextField fx:id="albumName" layoutX="542.0" layoutY="374.0" promptText="Search..." />

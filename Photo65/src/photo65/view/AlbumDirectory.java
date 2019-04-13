@@ -42,6 +42,7 @@ public class AlbumDirectory {
 	@FXML ListView<Album> albumList;
 	public static ObservableList<Album> useralbums= FXCollections.observableArrayList(); 
 	private Stage mainStage;
+	Album renameAlb; 
 	public void start(Stage primaryStage) {
 		this.mainStage = primaryStage;
 		albumList.setItems(useralbums);
@@ -126,7 +127,7 @@ public class AlbumDirectory {
 		Album deleted= albumList.getSelectionModel().getSelectedItem(); 
 		
 		if(albumList.getSelectionModel().getSelectedItem()==null) {
-			Toast.makeText(mainStage, "Nothing Selected", 500, 500, 500);
+			Toast.makeText(mainStage, "Nothing Selected", 500, 500, 50);
 			return;
 		}
 		else {
@@ -155,6 +156,50 @@ public class AlbumDirectory {
 //			user.albums.remove((albumList.getSelectionModel().getSelectedItem()));
 //			albumList.setItems(useralbums);
 			Toast.makeText(mainStage, "Album removed", 500, 500, 50);
+		}
+	}
+	public void rename(ActionEvent event) {
+		String rename; 
+		renameAlb = albumList.getSelectionModel().getSelectedItem();
+		TextInputDialog dialog = new TextInputDialog();
+		dialog.initOwner(mainStage); dialog.setTitle("Rename Album");
+		dialog.setHeaderText("Enter desired new album Name");
+		dialog.setContentText("Enter new name: ");
+		Optional<String> result = dialog.showAndWait();
+		if(result.get().isEmpty()) {
+			Toast.makeText(mainStage, "Album name cannot be empty", 500, 500, 500);
+			return;
+		}
+		rename = result.get();
+		boolean unoriginal=false; 
+		int found = -1; 
+		for (int i=0; i<useralbums.size(); i++){
+			if(useralbums.get(i).albumName.equals(rename)){
+				unoriginal=true; 
+				Alert alert = new Alert(AlertType.ERROR, "This Album Name Already Exists", ButtonType.CLOSE);
+				alert.showAndWait(); 
+				break; 
+			}
+			if(useralbums.get(i).albumName.equals(renameAlb.albumName)){
+				found= i; 
+			}
+		}
+		if(!unoriginal){
+			useralbums.get(found).setName(rename);
+			Collections.sort(useralbums,Album.Comparators.NAME);
+			albumList.setItems(useralbums);
+			List<Album> list = useralbums.stream().collect(Collectors.toList());
+			user.albums= (ArrayList<Album>) list;
+			try {
+				ObjectOutputStream os= new ObjectOutputStream(new FileOutputStream(Administrator.file));
+				os.writeObject(new ArrayList<Users>(Administrator.observe_list)); 
+				os.close();
+			}catch (FileNotFoundException e){
+				e.printStackTrace(); 
+			}catch (IOException e) {
+		
+				e.printStackTrace();
+			} 
 		}
 	}
 	

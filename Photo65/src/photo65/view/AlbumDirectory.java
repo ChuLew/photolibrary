@@ -27,6 +27,8 @@ import jdk.nashorn.internal.ir.BreakableNode;
 
 
 
+
+
 public class AlbumDirectory {
 	@FXML AnchorPane rootPane;
 	@FXML Button logoutBtn;
@@ -119,4 +121,43 @@ public class AlbumDirectory {
 		}
 		albumName.clear();
 	}
+	@FXML 
+	void deleteAlbum(ActionEvent E) {
+		Album deleted= albumList.getSelectionModel().getSelectedItem(); 
+		
+		if(albumList.getSelectionModel().getSelectedItem()==null) {
+			Toast.makeText(mainStage, "Nothing Selected", 500, 500, 500);
+			return;
+		}
+		else {
+			for(int i=0; i<useralbums.size(); i++){
+				if(useralbums.get(i).albumName.equals(deleted.albumName)){
+					Alert alert = new Alert(AlertType.CONFIRMATION, "Delete Album: " + deleted.albumName + "?", ButtonType.YES, ButtonType.NO);
+					alert.showAndWait();
+					if (alert.getResult() == ButtonType.YES) {	
+						useralbums.remove(i); 
+						List<Album> list = useralbums.stream().collect(Collectors.toList());
+						user.albums= (ArrayList<Album>) list;
+						try {
+							ObjectOutputStream os= new ObjectOutputStream(new FileOutputStream(Administrator.file));
+							os.writeObject(new ArrayList<Users>(Administrator.observe_list)); 
+							os.close();
+						}catch (FileNotFoundException e){
+							e.printStackTrace(); 
+						}catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} 
+						Toast.makeText(mainStage, "Album removed", 500, 500, 500);
+					}
+				}
+			}
+//			user.albums.remove((albumList.getSelectionModel().getSelectedItem()));
+//			albumList.setItems(useralbums);
+			Toast.makeText(mainStage, "Album removed", 500, 500, 50);
+		}
+	}
+	
+	
 }
+

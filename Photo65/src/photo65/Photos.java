@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import photo65.view.SceneController;
 
 public class Photos extends Application {
 	private Stage primaryStage;
@@ -14,7 +15,9 @@ public class Photos extends Application {
 	public void start(Stage primaryStage) throws IOException {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Photo Library");
-		showMainView();
+		SceneController.primaryStage = primaryStage;
+		SceneController.viewLogin();
+		//showMainView();
 	}
 	
 	private void showMainView() throws IOException{

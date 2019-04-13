@@ -19,41 +19,52 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import photo65.Photos;
 
+
 /***
  * Controller class for loginPage.fxml
  * @author Mitch Lew
  */
 
-public class Login implements Initializable{
-	@FXML
-	private Button loger;
-	
-	@FXML
-	private TextField enteredName;
-	
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		try {
-			ObjectInputStream in= new ObjectInputStream(new FileInputStream(Administrator.file));
-			List<Users> userlist= (List<Users>) in.readObject();  
-			Administrator.observe_list= FXCollections.observableList(userlist); 
-			in.close();
-		}catch (ClassNotFoundException c){
-			c.printStackTrace(); 
-		}catch (IOException event) {
-			event.printStackTrace();
-		} 
+public class Login{
+	@FXML private Button loger;
+	@FXML private TextField enteredName;
+	private Stage mainStage;
+	public void start(Stage mainStage) {                
+			this.mainStage = mainStage;
+			try {
+				ObjectInputStream in= new ObjectInputStream(new FileInputStream(Administrator.file));
+				List<Users> userlist= (List<Users>) in.readObject();  
+				Administrator.observe_list= FXCollections.observableList(userlist); 
+				in.close();
+			}catch (ClassNotFoundException c){
+				c.printStackTrace(); 
+			}catch (IOException event) {
+				event.printStackTrace();
+			} 
 	}
+	//@Override
+//	public void initialize(URL arg0, ResourceBundle arg1) {
+//		try {
+//			ObjectInputStream in= new ObjectInputStream(new FileInputStream(Administrator.file));
+//			List<Users> userlist= (List<Users>) in.readObject();  
+//			Administrator.observe_list= FXCollections.observableList(userlist); 
+//			in.close();
+//		}catch (ClassNotFoundException c){
+//			c.printStackTrace(); 
+//		}catch (IOException event) {
+//			event.printStackTrace();
+//		} 
+//	}
 	public void confirmLogin(ActionEvent event) throws IOException{
 		String name = enteredName.getText(); 
 		if(name.equals("admin")){
-			System.out.println("GOT HERE");
-			FXMLLoader loader= new FXMLLoader(); 
-			loader.setLocation(Photos.class.getResource("view/adminPage.fxml")); 
-			Scene scene= new Scene(loader.load()); 
-			Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow(); 
-			primaryStage.setScene(scene);  
-			primaryStage.show();
+			SceneController.viewAdmin();
+//			FXMLLoader loader= new FXMLLoader(); 
+//			loader.setLocation(Photos.class.getResource("view/adminPage.fxml")); 
+//			Scene scene= new Scene(loader.load()); 
+//			Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow(); 
+//			primaryStage.setScene(scene);  
+//			primaryStage.show();
 		}
 		
 	}

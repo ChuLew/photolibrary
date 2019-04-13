@@ -29,7 +29,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
 
-public class Administrator implements Initializable {
+public class Administrator {
 	@FXML
 	private Button add;
 	@FXML
@@ -43,11 +43,6 @@ public class Administrator implements Initializable {
 	public static ObservableList<Users> observe_list = FXCollections.observableArrayList();
 	
 	public static String file = "DirectoryOfUsers.bin";
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		usernames.setItems(observe_list);
-		
-	}
 	@FXML
 	private void on_logout(ActionEvent event) throws IOException{
 		FXMLLoader loader= new FXMLLoader(); 
@@ -113,5 +108,8 @@ public class Administrator implements Initializable {
 				e.printStackTrace();
 			} 
 		}
+	}
+	public void start(Stage primaryStage) {
+		usernames.setItems(observe_list);
 	}
 }

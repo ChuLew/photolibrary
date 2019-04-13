@@ -38,4 +38,16 @@ public class SceneController {
 		primaryStage.show(); 
 		
 	}
+
+	public static void viewAlbumDirectory() throws IOException {
+		FXMLLoader loader = new FXMLLoader();   
+		loader.setLocation(Photos.class.getResource("view/albumDirectory.fxml"));
+		AnchorPane root = (AnchorPane)loader.load();
+		AlbumDirectory AlbDirController = loader.getController();
+		AlbDirController.start(primaryStage);
+		Scene scene = new Scene(root);		
+		primaryStage.setScene(scene);
+		primaryStage.show(); 
+		
+	}
 }

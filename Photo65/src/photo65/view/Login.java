@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import photo65.Photos;
 
 
+
 /***
  * Controller class for loginPage.fxml
  * @author Mitch Lew
@@ -65,8 +66,23 @@ public class Login{
 //			Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow(); 
 //			primaryStage.setScene(scene);  
 //			primaryStage.show();
+		}else {
+			for(int i=0; i<Administrator.observe_list.size(); i++){
+				if(Administrator.observe_list.get(i).username.equals(name)){
+					SceneController.viewAlbumDirectory();
+//					MainPage.user= Administrator.observe_list.get(i); 
+//					if(!(Administrator.observe_list.get(i).albums==null)){
+//						MainPage.useralbums= FXCollections.observableArrayList(Administration.obslist.get(i).albums);  
+//					}
+//					FXMLLoader loader= new FXMLLoader(); 
+//					loader.setLocation(Photos.class.getResource("view/HomeAlbum.fxml")); 
+//					Scene scene= new Scene(loader.load()); 
+//					Stage primaryStage = (Stage) ((Node) e.getSource()).getScene().getWindow(); 
+//					primaryStage.setScene(scene);  
+//					primaryStage.show();
+				}
+			}
 		}
-		
 	}
 
 

@@ -7,6 +7,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
@@ -18,9 +19,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import jdk.nashorn.internal.ir.BreakableNode;
 
 
 
@@ -62,12 +65,23 @@ public class AlbumDirectory {
 	@FXML 
 	public void addAlbum(ActionEvent e){
 		String aname; 
-		if(albumName.getText()==null){
-			aname= ""; 
+		TextInputDialog dialog = new TextInputDialog();
+		dialog.initOwner(mainStage); dialog.setTitle("Create Album");
+		dialog.setHeaderText("Enter album name");
+		dialog.setContentText("Enter name: ");
+		Optional<String> result = dialog.showAndWait();
+		if(result.get().isEmpty()) {
+			Toast.makeText(mainStage, "Album name cannot be empty", 500, 500, 500);
+			return;
 		}
-		else{
-			aname= albumName.getText(); 
-		}
+		aname = result.get();
+//		if(albumName.getText()==null){
+//			Alert alert = new Alert(AlertType.ERROR,"You didnt input a Album Name", ButtonType.CLOSE);
+//			return;
+//		}
+//		else{
+//			aname= albumName.getText(); 
+//		}
 		boolean unoriginal= false;
 		Album thisAlbum= new Album(aname); 
 		//useralbums= album.getItems(); 

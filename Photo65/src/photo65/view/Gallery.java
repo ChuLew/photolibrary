@@ -1,7 +1,10 @@
 package photo65.view;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +27,7 @@ import javafx.scene.layout.TilePane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
 
 
 public class Gallery {
@@ -81,7 +85,16 @@ public class Gallery {
 			ImageView im = photo.getFittedImageView();
 			mapper.put(im, photo);
 			tilePane.getChildren().add(im);
-			
+			try {
+				ObjectOutputStream os= new ObjectOutputStream(new FileOutputStream(Administrator.file));
+				os.writeObject(new ArrayList<Users>(Administrator.observe_list)); 
+				os.close();
+			}catch (FileNotFoundException e1){
+				e1.printStackTrace(); 
+			}catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} 
 		}
 	}
 	@FXML
@@ -117,6 +130,16 @@ public class Gallery {
 			album.photos.remove(p);
 			tilePane.getChildren().remove(selected);
 			selected = null;
+			try {
+				ObjectOutputStream os= new ObjectOutputStream(new FileOutputStream(Administrator.file));
+				os.writeObject(new ArrayList<Users>(Administrator.observe_list)); 
+				os.close();
+			}catch (FileNotFoundException e1){
+				e1.printStackTrace(); 
+			}catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} 
 		}	
 	}
 	@FXML
@@ -152,6 +175,16 @@ public class Gallery {
 					SceneController.currentUser.albums.get(i).photos.add(p);
 				}
 			}
+			try {
+				ObjectOutputStream os= new ObjectOutputStream(new FileOutputStream(Administrator.file));
+				os.writeObject(new ArrayList<Users>(Administrator.observe_list)); 
+				os.close();
+			}catch (FileNotFoundException e1){
+				e1.printStackTrace(); 
+			}catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} 
 		}
 	}
 	@FXML
@@ -159,7 +192,7 @@ public class Gallery {
 		System.out.println("move");
 		List<String> alist = new ArrayList<String>();
 		if(selected == null) {
-			Toast.makeText(mainStage, "No Photo Selected", 500, 500, 500);
+			Toast.makeText(mainStage, "No Photo Selected", 500, 500, 50);
 			return;
 		}
 		for(Album a : SceneController.currentUser.albums)
@@ -172,7 +205,7 @@ public class Gallery {
 			dialog = new ChoiceDialog<String>(alist.get(0), alist);
 		else
 		{
-			Toast.makeText(mainStage, "No other album", 500, 500, 500);
+			Toast.makeText(mainStage, "No other album", 500, 500, 50);
 			return;
 		}
 		dialog.setTitle("Pick Album");
@@ -187,6 +220,16 @@ public class Gallery {
 					SceneController.currentUser.albums.get(i).photos.add(p);
 				}
 			}
+			try {
+				ObjectOutputStream os= new ObjectOutputStream(new FileOutputStream(Administrator.file));
+				os.writeObject(new ArrayList<Users>(Administrator.observe_list)); 
+				os.close();
+			}catch (FileNotFoundException e1){
+				e1.printStackTrace(); 
+			}catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} 
 		}
 		remove(e);
 	}

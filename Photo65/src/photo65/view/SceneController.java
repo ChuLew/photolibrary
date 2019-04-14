@@ -14,7 +14,9 @@ import photo65.view.Login;
 public class SceneController {
 	public static Stage primaryStage;
 	private AnchorPane mainLayout;
-	//public static Users currentUser;
+	public static Users currentUser;
+	public static Album currentAlbum;
+	public static PhotoData currentPhoto;
 	
 	public static void viewLogin() throws IOException
 	{
@@ -50,5 +52,15 @@ public class SceneController {
 		primaryStage.setScene(scene);
 		primaryStage.show(); 
 		
+	}
+	public static void viewGallery() throws IOException{
+		FXMLLoader loader = new FXMLLoader();   
+		loader.setLocation(Photos.class.getResource("view/photoGallery.fxml"));
+		AnchorPane root = (AnchorPane)loader.load();
+		Gallery metGal = loader.getController();
+		metGal.start(primaryStage);// cause of problem
+		Scene scene = new Scene(root);		
+		primaryStage.setScene(scene);
+		primaryStage.show();
 	}
 }

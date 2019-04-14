@@ -71,6 +71,7 @@ public class Login{
 			for(int i=0; i<Administrator.observe_list.size(); i++){
 				if(Administrator.observe_list.get(i).username.equals(name)){
 					AlbumDirectory.user= Administrator.observe_list.get(i); 
+					SceneController.currentUser = Administrator.observe_list.get(i);
 					if(!(Administrator.observe_list.get(i).albums==null)){
 						AlbumDirectory.useralbums= FXCollections.observableArrayList(Administrator.observe_list.get(i).albums);  
 					}

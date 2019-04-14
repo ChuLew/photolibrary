@@ -87,6 +87,8 @@ public class AlbumDirectory {
 //		}
 		boolean unoriginal= false;
 		Album thisAlbum= new Album(aname); 
+		int jn = thisAlbum.photos.size();
+		System.out.println(jn);
 		//useralbums= album.getItems(); 
 		//Check to see if song has already been added before
 		for (int i=0; i<useralbums.size(); i++){
@@ -202,7 +204,15 @@ public class AlbumDirectory {
 			} 
 		}
 	}
-	
+	@FXML
+	void openAlbum(ActionEvent e) throws IOException {
+		if(albumList.getSelectionModel().getSelectedItem()==null) {
+			Toast.makeText(mainStage, "Nothing Selected", 500, 500, 50);
+			return;
+		}
+			SceneController.currentAlbum = albumList.getSelectionModel().getSelectedItem();
+			SceneController.viewGallery();
+	}
 	
 }
 

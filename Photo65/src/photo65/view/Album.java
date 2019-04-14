@@ -4,20 +4,28 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Comparator;
 /**
  * Album Object Class 
- * @author Nikhil Jiju
+ * @author Mitch Lew
  *
  */
 public class Album implements Serializable, Comparable<Album>{
 	private static final long serialVersionUID = -1503934156878954986L;
-	String albumName; 
-	ArrayList<PhotoData> photos; 
+	public String albumName; 
+	public ArrayList<PhotoData> photos; 
 	Calendar min; 
 	Calendar max; 
 	public Album(String name){
 		albumName= name; 
+		photos = new ArrayList<PhotoData>();
+	}
+	public Album(String n, Collection<PhotoData> col) {
+		this(n);
+		for(PhotoData p : col) {
+			photos.add(new PhotoData(p));
+		}
 	}
 	public String toString(){
 		int size; 

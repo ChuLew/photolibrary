@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+
 import javafx.animation.ScaleTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,6 +24,7 @@ import javafx.scene.layout.TilePane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
 
 public class Gallery {
 	@FXML AnchorPane rootPane;
@@ -151,5 +153,41 @@ public class Gallery {
 				}
 			}
 		}
+	}
+	@FXML
+	void move(ActionEvent e) {
+		System.out.println("move");
+		List<String> alist = new ArrayList<String>();
+		if(selected == null) {
+			Toast.makeText(mainStage, "No Photo Selected", 500, 500, 500);
+			return;
+		}
+		for(Album a : SceneController.currentUser.albums)
+		{
+			if(!a.albumName.equals(SceneController.currentAlbum.albumName))
+				alist.add(a.albumName);
+		}
+		ChoiceDialog<String> dialog;
+		if(SceneController.currentUser.albums.size() > 1)
+			dialog = new ChoiceDialog<String>(alist.get(0), alist);
+		else
+		{
+			Toast.makeText(mainStage, "No other album", 500, 500, 500);
+			return;
+		}
+		dialog.setTitle("Pick Album");
+		dialog.setHeaderText("Pick move to album");
+		dialog.setContentText("Choose the album to move to");
+		Optional<String> result = dialog.showAndWait();
+		if (result.isPresent()){
+			PhotoData p = mapper.get(selected);
+			int k = SceneController.currentUser.albums.size();
+			for(int i =0; i<k; i++) {
+				if(SceneController.currentUser.albums.get(i).albumName==result.get()) {
+					SceneController.currentUser.albums.get(i).photos.add(p);
+				}
+			}
+		}
+		remove(e);
 	}
 }

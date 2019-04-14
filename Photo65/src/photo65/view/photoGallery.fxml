@@ -16,7 +16,7 @@
       </ScrollPane>
       <Button fx:id="addBtn" layoutX="14.0" layoutY="359.0" mnemonicParsing="false" onAction="#add" prefHeight="106.0" prefWidth="147.0" text="Add Photo" />
       <Button fx:id="remBtn" layoutX="181.0" layoutY="359.0" mnemonicParsing="false" onAction="#remove" prefHeight="106.0" prefWidth="147.0" text="Remove Photo" />
-      <Button fx:id="disBtn" layoutX="338.0" layoutY="359.0" mnemonicParsing="false" prefHeight="106.0" prefWidth="147.0" text="Display Photo" />
+      <Button fx:id="disBtn" layoutX="338.0" layoutY="359.0" mnemonicParsing="false" onAction="#display" prefHeight="106.0" prefWidth="147.0" text="Display Photo" />
       <Button fx:id="copyBtn" layoutX="506.0" layoutY="359.0" mnemonicParsing="false" onAction="#copy" prefHeight="106.0" prefWidth="147.0" text="Copy Photo" />
       <Button fx:id="moveBtn" layoutX="662.0" layoutY="359.0" mnemonicParsing="false" onAction="#move" prefHeight="106.0" prefWidth="147.0" text="Move Photo" />
       <Button fx:id="logBtn" layoutX="241.0" layoutY="479.0" mnemonicParsing="false" onAction="#onLogout" prefHeight="39.0" prefWidth="147.0" text="Logout" />

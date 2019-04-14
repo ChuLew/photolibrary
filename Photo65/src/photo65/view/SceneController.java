@@ -63,4 +63,16 @@ public class SceneController {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
+
+	public static void displayPhoto() throws IOException {
+		
+		FXMLLoader loader = new FXMLLoader();   
+		loader.setLocation(Photos.class.getResource("view/Display.fxml"));
+		AnchorPane root = (AnchorPane)loader.load();
+		Display photgal = loader.getController();
+		photgal.start(primaryStage);// cause of problem
+		Scene scene = new Scene(root);		
+		primaryStage.setScene(scene);
+		primaryStage.show();
+	}
 }

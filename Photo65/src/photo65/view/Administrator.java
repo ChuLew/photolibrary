@@ -54,7 +54,7 @@ public class Administrator {
 		if (result.isPresent())
 		{
 			if(result.get().isEmpty()) {
-				Toast.makeText(mainStage, "No name inputed!", 500, 500, 500);
+				Toast.makeText(mainStage, "No name inputed!", 500, 500, 50);
 				return;
 			}
 			boolean alreadyUsed = false;
@@ -86,37 +86,7 @@ public class Administrator {
 			}
 		}
 	}
-//		String username; 
-//		username = newUsers.getText();
-//		if(username == null) {
-//			username = "";
-//		}
-//		boolean alreadyUsed  = false;
-//		observe_list = usernames.getItems();
-//		Users user = new Users(username);
-//		for(int i = 0; i< observe_list.size();i++) {
-//			if(observe_list.get(i).username.equals(username)) {
-//				alreadyUsed = true;
-//				Alert alert = new Alert(AlertType.ERROR,"Username already in directory",ButtonType.OK);
-//				alert.showAndWait();
-//				break;
-//			}
-//		}
-//		if(!alreadyUsed && !username.contentEquals("")) {
-//			observe_list.add(user);
-//			Collections.sort(observe_list,Users.Comparators.NAME);
-//			usernames.setItems(observe_list);
-//			try {
-//				ObjectOutputStream os= new ObjectOutputStream(new FileOutputStream(file));
-//				os.writeObject(new ArrayList<Users>(observe_list)); 
-//				os.close();
-//			}catch (FileNotFoundException e){
-//				e.printStackTrace(); 
-//			}catch (IOException e) {
-//				e.printStackTrace();
-//			} 
-//		}
-//	}
+
 	@FXML
 	private void deleteUsers(ActionEvent event) {
 		Alert alert = new Alert(AlertType.CONFIRMATION, "Delete: " + usernames.getSelectionModel().getSelectedItem().username + "?", ButtonType.YES, ButtonType.NO);

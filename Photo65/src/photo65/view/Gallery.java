@@ -71,6 +71,16 @@ public class Gallery {
 		SceneController.viewAlbumDirectory();
 	}
 	@FXML
+	void display(ActionEvent e) throws IOException {
+		if(selected == null) {
+			Toast.makeText(mainStage, "No photo selected", 500, 500, 50);
+			return;
+		}
+		SceneController.currentPhoto = mapper.get(selected);
+		//Display.Album.photos = mapper.get(selected);
+		SceneController.displayPhoto();
+	}
+	@FXML
 	void add(ActionEvent e) {
 		FileChooser fileChooser = new FileChooser();
 		

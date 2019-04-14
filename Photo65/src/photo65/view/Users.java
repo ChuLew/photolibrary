@@ -15,12 +15,10 @@ public class Users implements Serializable, Comparable<Users>{
 
 	private static final long serialVersionUID =  3897026392760534999L;
 	String username; 
-	int i;;
 	ArrayList<Album> albums;  
 	//public static ObservableList<Album> albums= FXCollections.observableArrayList(); 
 	public Users(String name){
 		this.username= name; 
-		this.i = 4;
 	}
 
 	public void addAlbum(Album album){

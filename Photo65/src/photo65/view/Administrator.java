@@ -26,7 +26,8 @@ public class Administrator {
 	@FXML private Button delete;
 	@FXML private Button logout;
 	@FXML private TextField newUsers;
-	@FXML ListView<Users> usernames;
+	@FXML
+	public ListView<Users> usernames;
 	private Stage mainStage;
 	public static ObservableList<Users> observe_list = FXCollections.observableArrayList();
 	

@@ -12,12 +12,14 @@ import java.util.Comparator;
 public class Users implements Serializable, Comparable<Users>{ 
 
 	private static final long serialVersionUID =  3897026392760534999L;
-	String username; 
-	ArrayList<Album> albums;  
+	public String username; 
+	public ArrayList<Album> albums;  
 	public Users(String name){
 		this.username= name; 
+		this.albums = new ArrayList<Album>();
 	}
 	public void addAlbum(Album album){
+		albums.add(album);
 	}
 	public String toString(){
 		return username; 

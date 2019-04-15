@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.TilePane?>
+
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="427.0" prefWidth="919.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="photo65.view.Search">
+   <children>
+      <DatePicker fx:id="end" layoutX="19.0" layoutY="176.0" prefHeight="27.0" prefWidth="150.0" promptText="Start Date" />
+      <DatePicker fx:id="start" layoutX="19.0" layoutY="37.0" prefHeight="24.0" prefWidth="150.0" promptText="End Date" />
+      <TextField fx:id="tagValue" layoutX="19.0" layoutY="173.0" prefHeight="33.0" prefWidth="150.0" promptText="tag value" />
+      <Button fx:id="searchBtn" layoutX="673.0" layoutY="33.0" mnemonicParsing="false" onAction="#searchTag" prefHeight="91.0" prefWidth="182.0" text="Search" />
+      <TextField fx:id="tagName" layoutX="19.0" layoutY="34.0" prefHeight="33.0" prefWidth="150.0" promptText="tag name" />
+      <RadioButton fx:id="byDate" layoutX="42.0" layoutY="15.0" mnemonicParsing="false" onAction="#changeBy" text="Date" />
+      <RadioButton fx:id="byTag" layoutX="104.0" layoutY="15.0" mnemonicParsing="false" onAction="#changeBy" selected="true" text="Tag" />
+      <ListView fx:id="tagNames" layoutX="19.0" layoutY="77.0" prefHeight="91.0" prefWidth="150.0" />
+      <ListView fx:id="tagValues" layoutX="19.0" layoutY="213.0" prefHeight="91.0" prefWidth="150.0" />
+      <RadioButton fx:id="andClick" layoutX="34.0" layoutY="310.0" mnemonicParsing="false" onAction="#changeLogic" text="AND" />
+      <RadioButton fx:id="orClick" layoutX="106.0" layoutY="310.0" mnemonicParsing="false" onAction="#changeLogic" selected="true" text="OR" />
+      <Button fx:id="addTag" layoutX="19.0" layoutY="380.0" mnemonicParsing="false" onAction="#addTag" prefHeight="33.0" prefWidth="150.0" text="Add Tag" />
+      <Button fx:id="clearTag" layoutX="19.0" layoutY="340.0" mnemonicParsing="false" onAction="#clearTag" prefHeight="33.0" prefWidth="150.0" text="Clear Tags" />
+      <Button fx:id="createAlbumBtn" layoutX="673.0" layoutY="129.0" mnemonicParsing="false" prefHeight="91.0" prefWidth="182.0" text="Create Album" />
+      <Button fx:id="returnBtn" layoutX="673.0" layoutY="223.0" mnemonicParsing="false" onAction="#onReturn" prefHeight="91.0" prefWidth="182.0" text="Return" />
+      <Button fx:id="logoutBtn" layoutX="673.0" layoutY="319.0" mnemonicParsing="false" onAction="#onLogout" prefHeight="91.0" prefWidth="182.0" text="Logout" />
+      <ScrollPane fx:id="scrollpane" layoutX="190.0" layoutY="34.0" prefHeight="375.0" prefWidth="481.0">
+         <content>
+            <TilePane fx:id="tilepane" prefHeight="302.0" prefWidth="477.0" />
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

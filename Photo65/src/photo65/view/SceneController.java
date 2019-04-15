@@ -75,4 +75,16 @@ public class SceneController {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
+
+	public static void viewSearch() throws IOException {
+		
+		FXMLLoader loader = new FXMLLoader();   
+		loader.setLocation(Photos.class.getResource("view/search.fxml"));
+		AnchorPane root = (AnchorPane)loader.load();
+		Search psearch = loader.getController();
+		psearch.start(primaryStage);// cause of problem
+		Scene scene = new Scene(root);		
+		primaryStage.setScene(scene);
+		primaryStage.show();
+	}
 }

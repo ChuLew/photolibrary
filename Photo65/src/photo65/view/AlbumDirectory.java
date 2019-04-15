@@ -64,7 +64,10 @@ public class AlbumDirectory {
 	public void onLogout() throws IOException {
 		SceneController.viewLogin();
 	}
-
+	@FXML
+	public void search(ActionEvent e) throws IOException {
+		SceneController.viewSearch();
+	}
 	@FXML 
 	public void addAlbum(ActionEvent e){
 		String aname; 

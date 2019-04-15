@@ -23,11 +23,6 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import jdk.nashorn.internal.ir.BreakableNode;
-
-
-
-
 
 public class AlbumDirectory {
 	@FXML AnchorPane rootPane;
@@ -46,21 +41,7 @@ public class AlbumDirectory {
 	public void start(Stage primaryStage) {
 		this.mainStage = primaryStage;
 		albumList.setItems(useralbums);
-//		User = SceneController.currentUser;
-//		obslist = FXCollections.observableArrayList(Users.albums);
-//		albumList.setItems(obslist);
-//		for(String a: User.albums.keySet()) {
-//			obslist.add(a);
-//		}
-//		albumList.setItems(obslist);
-//		albumList.getSelectionModel().selectedIndexProperty().addListener((obs,oldVal,newVal)-> selectItem(mainStage));
-//		
-		
 	}
-//	private Object selectItem(Stage mainStage2) {
-//		albumList.getSelectionModel().getSelectedItem();
-//		return null;
-//	}
 	public void onLogout() throws IOException {
 		SceneController.viewLogin();
 	}
@@ -81,19 +62,10 @@ public class AlbumDirectory {
 			return;
 		}
 		aname = result.get();
-//		if(albumName.getText()==null){
-//			Alert alert = new Alert(AlertType.ERROR,"You didnt input a Album Name", ButtonType.CLOSE);
-//			return;
-//		}
-//		else{
-//			aname= albumName.getText(); 
-//		}
+
 		boolean unoriginal= false;
 		Album thisAlbum= new Album(aname); 
 		int jn = thisAlbum.photos.size();
-		System.out.println(jn);
-		//useralbums= album.getItems(); 
-		//Check to see if song has already been added before
 		for (int i=0; i<useralbums.size(); i++){
 			if(useralbums.get(i).albumName.equals(aname)){
 				unoriginal=true; 
@@ -107,7 +79,6 @@ public class AlbumDirectory {
 			alert.showAndWait();
 
 			if (alert.getResult() == ButtonType.YES) {	
-				System.out.println(thisAlbum);
 				useralbums.add(thisAlbum); 
 				Collections.sort(useralbums,Album.Comparators.NAME);
 				albumList.setItems(useralbums);
@@ -120,7 +91,6 @@ public class AlbumDirectory {
 				}catch (FileNotFoundException event){
 					event.printStackTrace(); 
 				}catch (IOException event) {
-					// TODO Auto-generated catch block
 					event.printStackTrace();
 				} 
 			}
@@ -158,8 +128,6 @@ public class AlbumDirectory {
 					}
 				}
 			}
-//			user.albums.remove((albumList.getSelectionModel().getSelectedItem()));
-//			albumList.setItems(useralbums);
 			Toast.makeText(mainStage, "Album removed", 500, 500, 50);
 		}
 	}

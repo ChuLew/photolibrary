@@ -1,7 +1,6 @@
 package photo65.view;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -37,7 +36,6 @@ public class Album implements Serializable, Comparable<Album>{
 			more=""; 
 		}
 		else{
-			
 			size= photos.size(); 
 			for(int i=0; i<photos.size(); i++){
 				if(min==null){
@@ -53,18 +51,15 @@ public class Album implements Serializable, Comparable<Album>{
 					max= photos.get(i).getDate();
 				}
 			}
-			//SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy");
 			more= "\nFrom: " + min.getTime() + " to " + max.getTime(); 
 		}
 		String representation= albumName + "\n" + "Photos: " + size + more; 
 		return representation; 
-		//return albumName; 
 	}
 
 	public void setName(String name){
 		albumName= name; 
 	}
-
 	public int compareTo(Album album){
 		return this.albumName.compareTo(album.albumName); 
 	} 

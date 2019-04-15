@@ -18,7 +18,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -44,7 +43,6 @@ public class Gallery {
 	@FXML ImageView invisIV;
 	private Stage mainStage;
 	private static Album album;
-	private static Users user;
 	private ImageView selected = null;
 	public static ObservableList<PhotoData> all_photos = FXCollections.observableArrayList();
 	private HashMap<ImageView, PhotoData> mapper;
@@ -54,7 +52,6 @@ public class Gallery {
 		this.mainStage = mainStage;
 		album = SceneController.currentAlbum;
 		System.out.println(album.albumName);
-		user = SceneController.currentUser;
 		mapper = new HashMap<>();
 		int k = SceneController.currentAlbum.photos.size();
 		for(int i = 0; i < k; i++) {
@@ -77,7 +74,6 @@ public class Gallery {
 			return;
 		}
 		SceneController.currentPhoto = mapper.get(selected);
-		//Display.Album.photos = mapper.get(selected);
 		SceneController.displayPhoto();
 	}
 	@FXML
@@ -147,7 +143,6 @@ public class Gallery {
 			}catch (FileNotFoundException e1){
 				e1.printStackTrace(); 
 			}catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} 
 		}	
@@ -192,7 +187,6 @@ public class Gallery {
 			}catch (FileNotFoundException e1){
 				e1.printStackTrace(); 
 			}catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} 
 		}

@@ -1,8 +1,6 @@
 package photo65.view;
 
 import java.io.IOException;
-import java.net.URL;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -13,7 +11,6 @@ import photo65.view.Login;
 
 public class SceneController {
 	public static Stage primaryStage;
-	private AnchorPane mainLayout;
 	public static Users currentUser;
 	public static Album currentAlbum;
 	public static PhotoData currentPhoto;
@@ -79,9 +76,9 @@ public class SceneController {
 	public static void viewSearch() throws IOException {
 		
 		FXMLLoader loader = new FXMLLoader();   
-		loader.setLocation(Photos.class.getResource("view/search.fxml"));
+		loader.setLocation(Photos.class.getResource("view/search1.fxml"));
 		AnchorPane root = (AnchorPane)loader.load();
-		Search psearch = loader.getController();
+		Search1 psearch = loader.getController();
 		psearch.start(primaryStage);// cause of problem
 		Scene scene = new Scene(root);		
 		primaryStage.setScene(scene);

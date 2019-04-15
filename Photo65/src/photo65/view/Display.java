@@ -30,14 +30,11 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
-
-
 public class Display {
 	private ObservableList<String> obsList;
 	PhotoData Photo;
 	static Album Album;
 	int index;
-	
 	@FXML Button logoutBtn;
 	@FXML Button nextBtn;
 	@FXML Button backBtn;
@@ -48,8 +45,7 @@ public class Display {
 	@FXML Label dateLab;
 	@FXML private ImageView showPhoto;
 	@FXML AnchorPane rootPane;
-	@FXML ListView tagList;
-	
+	@FXML ListView<String> tagList;
 	private Stage mainStage;
 	public void start(Stage primaryStage) {
 		this.mainStage = primaryStage;
@@ -131,31 +127,21 @@ public class Display {
 	void tag(ActionEvent e) {
 		 Dialog<Pair<String, String>> dialog = new Dialog<>();
 		 dialog.setTitle("Tag Creator");
-
-		    // Set the button types.
-		    ButtonType loginButtonType = new ButtonType("OK", ButtonData.OK_DONE);
+	    ButtonType loginButtonType = new ButtonType("OK", ButtonData.OK_DONE);
 		    dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
-
 		    GridPane gridPane = new GridPane();
 		    gridPane.setHgap(10);
 		    gridPane.setVgap(10);
 		    gridPane.setPadding(new Insets(20, 150, 10, 10));
-
 		    TextField from = new TextField();
 		    from.setPromptText("From");
 		    TextField to = new TextField();
 		    to.setPromptText("To");
-
 		    gridPane.add(from, 0, 0);
 		    gridPane.add(new Label("To:"), 1, 0);
 		    gridPane.add(to, 2, 0);
-
 		    dialog.getDialogPane().setContent(gridPane);
-
-		    // Request focus on the username field by default.
 		    Platform.runLater(() -> from.requestFocus());
-
-		    // Convert the result to a username-password-pair when the login button is clicked.
 		    dialog.setResultConverter(dialogButton -> {
 		        if (dialogButton == loginButtonType) {
 		            return new Pair<>(from.getText(), to.getText());
@@ -172,7 +158,6 @@ public class Display {
 		        }
 		        Photo.tags.put(pair.getKey(), pair.getValue());
 		        updateList();
-		        //obsList.add(pair.getKey()+ " , " + pair.getValue());
 		    });
 	}
 	@FXML

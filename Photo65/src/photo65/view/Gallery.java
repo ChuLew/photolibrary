@@ -1,5 +1,6 @@
 package photo65.view;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -10,15 +11,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+import javax.imageio.ImageIO;
 
 import javafx.animation.ScaleTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -45,26 +51,23 @@ public class Gallery {
 	private static Album album;
 	private ImageView selected = null;
 	public static ObservableList<PhotoData> all_photos = FXCollections.observableArrayList();
-	private HashMap<ImageView, PhotoData> mapper;
+	private HashMap<ImageView, PhotoData> photoMap;
 	
 	
 	public void start(Stage mainStage) {
 		this.mainStage = mainStage;
 		album = SceneController.currentAlbum;
-		mapper = new HashMap<>();
+		photoMap = new HashMap<>();
 		int k = SceneController.currentAlbum.photos.size();
-		//System.out.println(k);
 		for(int i = 0; i < k; i++) {
 			PhotoData p = album.photos.get(i);
+			//System.out.println(p.location);
 			ImageView im = p.getFittedImageView();
 			tilePane.getChildren().add(im);
-			mapper.put(im,p);
+			photoMap.put(im,p);
 		}
 	}
-//	public static void addMapper(ImageView im, PhotoData photo) {
-//		mapper.put(im, photo);
-//		
-//	}
+
 	public void onLogout() throws IOException {
 		SceneController.viewLogin();
 	}
@@ -77,23 +80,20 @@ public class Gallery {
 			Toast.makeText(mainStage, "No photo selected", 500, 500, 50);
 			return;
 		}
-		SceneController.currentPhoto = mapper.get(selected);
+		SceneController.currentPhoto = photoMap.get(selected);
 		SceneController.displayPhoto();
 	}
 	@FXML
 	void add(ActionEvent e) {
-		FileChooser fileChooser = new FileChooser();
-		
-		fileChooser.setTitle("Open Image file");
-		
+		FileChooser fileChooser = new FileChooser();	
+		fileChooser.setTitle("Open Image file");	
 		File newFile = fileChooser.showOpenDialog(mainStage);
-		
 		if(newFile != null && newFile.exists())
 		{
 			PhotoData photo = new PhotoData(newFile.toURI());
 			album.photos.add(photo);
 			ImageView im = photo.getFittedImageView();
-			mapper.put(im, photo);
+			photoMap.put(im, photo);
 			tilePane.getChildren().add(im);
 			try {
 				ObjectOutputStream os= new ObjectOutputStream(new FileOutputStream(Administrator.file));
@@ -135,24 +135,32 @@ public class Gallery {
 			Toast.makeText(mainStage, "No Photo Selected", 500, 500, 50);
 			return;
 		}else {
-			PhotoData p = mapper.get(selected);
-			album.photos.remove(p);
-			tilePane.getChildren().remove(selected);
-			selected = null;
-			try {
-				ObjectOutputStream os= new ObjectOutputStream(new FileOutputStream(Administrator.file));
-				os.writeObject(new ArrayList<Users>(Administrator.observe_list)); 
-				os.close();
-			}catch (FileNotFoundException e1){
-				e1.printStackTrace(); 
-			}catch (IOException e1) {
-				e1.printStackTrace();
-			} 
+			Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure you want to remove this Picture?", ButtonType.YES, ButtonType.NO);
+			alert.showAndWait();
+			if(alert.getResult()== ButtonType.YES) {
+				Toast.makeText(mainStage, "PhotoRemoved", 500, 500, 50);
+				PhotoData p = photoMap.get(selected);
+				album.photos.remove(p);
+				tilePane.getChildren().remove(selected);
+				selected = null;
+				
+				try {
+					ObjectOutputStream os= new ObjectOutputStream(new FileOutputStream(Administrator.file));
+					os.writeObject(new ArrayList<Users>(Administrator.observe_list)); 
+					os.close();
+				}catch (FileNotFoundException e1){
+					e1.printStackTrace(); 
+				}catch (IOException e1) {
+					e1.printStackTrace();
+				} 
+			}
+			else {
+				Toast.makeText(mainStage, "photo not removed", 500, 500, 50);
+			}
 		}	
 	}
 	@FXML
 	void copy(ActionEvent e) {
-		System.out.println("copy");
 		List<String> alist = new ArrayList<String>();
 		if(selected == null) {
 			Toast.makeText(mainStage, "No Photo Selected", 500, 500, 50);
@@ -176,7 +184,7 @@ public class Gallery {
 		dialog.setContentText("Choose the album to copy to");
 		Optional<String> result = dialog.showAndWait();
 		if (result.isPresent()){
-			PhotoData p = mapper.get(selected);
+			PhotoData p = photoMap.get(selected);
 			int k = SceneController.currentUser.albums.size();
 			for(int i =0; i<k; i++) {
 				if(SceneController.currentUser.albums.get(i).albumName==result.get()) {
@@ -196,7 +204,6 @@ public class Gallery {
 	}
 	@FXML
 	void move(ActionEvent e) {
-		System.out.println("move");
 		List<String> alist = new ArrayList<String>();
 		if(selected == null) {
 			Toast.makeText(mainStage, "No Photo Selected", 500, 500, 50);
@@ -215,12 +222,12 @@ public class Gallery {
 			Toast.makeText(mainStage, "No other album", 500, 500, 50);
 			return;
 		}
-		dialog.setTitle("Pick Album");
-		dialog.setHeaderText("Pick move to album");
-		dialog.setContentText("Choose the album to move to");
+		dialog.setTitle("Moving Albums");
+		dialog.setHeaderText("Move Album");
+		dialog.setContentText("Which album are you moving this to?");
 		Optional<String> result = dialog.showAndWait();
 		if (result.isPresent()){
-			PhotoData p = mapper.get(selected);
+			PhotoData p = photoMap.get(selected);
 			int k = SceneController.currentUser.albums.size();
 			for(int i =0; i<k; i++) {
 				if(SceneController.currentUser.albums.get(i).albumName==result.get()) {

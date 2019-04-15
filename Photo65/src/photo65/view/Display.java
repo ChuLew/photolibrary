@@ -27,12 +27,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
 public class Display {
-	private ObservableList<String> obsList;
+	private ObservableList<String> observelist;
 	PhotoData Photo;
 	static Album Album;
 	int index;
@@ -57,15 +58,14 @@ public class Display {
 		File file = new File(Photo.location);
         Image image = new Image(file.toURI().toString());
         showPhoto.setImage(image);
-		
-		caption.setText("Caption: " + SceneController.currentPhoto.caption);
-		dateLab.setText("Date: " + SceneController.currentPhoto.getLastModifiedDate().toString());
-		obsList = FXCollections.observableArrayList();
-		obsList.add("(tag) , (value)");
+        dateLab.setText("Date: " + SceneController.currentPhoto.getLastModifiedDate().toString());
+        caption.setText("Caption: " + SceneController.currentPhoto.caption);
+		observelist = FXCollections.observableArrayList();
+		observelist.add("(tag) , (value)");
 		for(String a: Photo.tags.keySet()) {
-			obsList.add(a + " , " + Photo.tags.get(a));
+			observelist.add(a + " , " + Photo.tags.get(a));
 		}
-		tagList.setItems(obsList);
+		tagList.setItems(observelist);
 	}
 	@FXML
 	void onLogout(ActionEvent e) throws IOException
@@ -81,7 +81,7 @@ public class Display {
 	void forward(ActionEvent e) {
 		//System.out.println("next");
 		if(index >= Album.photos.size() - 1) {
-			Toast.makeText(mainStage, "Cannot go further", 500, 500, 50);
+			Toast.makeText(mainStage, "Reached end of photos", 500, 500, 50);
 			return;
 		}
 		Photo = Album.photos.get(++index);
@@ -95,7 +95,7 @@ public class Display {
 	@FXML
 	void back(ActionEvent e) {
 		if(index<=0){
-			Toast.makeText(mainStage, "no more photos beyond this point", 500, 500, 50);
+			Toast.makeText(mainStage, "no more photos before this", 500, 500, 50);
 			return;
 		}
 		Photo = Album.photos.get(--index);
@@ -109,10 +109,10 @@ public class Display {
 	}
 	
 	private void updateList() {
-		obsList.clear();
-		obsList.add("(tag) , (value)");
+		observelist.clear();
+		observelist.add("(tag) , (value)");
 		for(String a: Photo.tags.keySet()) {
-			obsList.add(a + " , " + Photo.tags.get(a));
+			observelist.add(a + " , " + Photo.tags.get(a));
 		}
 		try {
 			ObjectOutputStream os= new ObjectOutputStream(new FileOutputStream(Administrator.file));
@@ -134,11 +134,13 @@ public class Display {
 		    GridPane gridPane = new GridPane();
 		    gridPane.setHgap(10);
 		    gridPane.setVgap(10);
+		    gridPane.setLayoutX(20);
+		    gridPane.setLayoutY(20);
 		    gridPane.setPadding(new Insets(20, 150, 10, 10));
 		    TextField from = new TextField();
-		    from.setPromptText("From");
+		    from.setPromptText("Descriptor");
 		    TextField to = new TextField();
-		    to.setPromptText("To");
+		    to.setPromptText("Value");
 		    gridPane.add(from, 0, 0);
 		    gridPane.add(new Label("To:"), 1, 0);
 		    gridPane.add(to, 2, 0);
@@ -150,12 +152,10 @@ public class Display {
 		        }
 		        return null;
 		    });
-
 		    Optional<Pair<String, String>> result = dialog.showAndWait();
-
 		    result.ifPresent(pair -> {
 		        if(pair.getKey().isEmpty() || pair.getValue().isEmpty()) {
-		        	Toast.makeText(mainStage, "Cannot be left blank", 500, 500, 50);
+		        	Toast.makeText(mainStage, "No text inputed! try again!", 500, 500, 50);
 		        	return;
 		        }
 		        Photo.tags.put(pair.getKey(), pair.getValue());
@@ -164,9 +164,9 @@ public class Display {
 	}
 	@FXML
 	void caption(ActionEvent e) {
-		//System.out.println("Caption/Recaption");
 		TextInputDialog dialog = new TextInputDialog();
-		dialog.initOwner(mainStage); dialog.setTitle("Caption");
+		dialog.initOwner(mainStage);
+		dialog.setTitle("Caption");
 		dialog.setHeaderText("Enter Photo Caption");
 		dialog.setContentText("Enter caption: ");
 		Optional<String> result = dialog.showAndWait();

@@ -83,6 +83,7 @@ public class PhotoData implements Serializable{
     	try {
     		image = new Image(new FileInputStream(new File(location)), 150, 0, true, true);
     	}catch(Exception e) {
+    		System.out.println(e);
     		return null;
     	}
     	ImageView iView = new ImageView(image);

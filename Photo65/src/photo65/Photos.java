@@ -32,55 +32,56 @@ public class Photos extends Application {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Photo Library");
 		SceneController.primaryStage = primaryStage;
-//		String resources[] = {"/photo/fan.jpg", "/photos/hj.jpg", "/photos/hos.jpg", "/photos/jj.jpg", "/photos/uk.jpg"};
-//		boolean stockTrue = false;
-//		for(int i = 0; i< Administrator.observe_list.size();i++) {
-//			if(Administrator.observe_list.get(i).username.equals("stock")) {
-//				stockTrue = true;
-//			}
-//		}
-//		if(!stockTrue) {
-////			Users stock = new Users("stock");
-////			Administrator.observe_list.add(stock);
-////			Collections.sort(Administrator.observe_list,Users.Comparators.NAME);
-//////usernames.setItems(Administrator.observe_list);
-////			try {
-////				ObjectOutputStream os= new ObjectOutputStream(new FileOutputStream(Administrator.file));
-////				os.writeObject(new ArrayList<Users>(Administrator.observe_list)); 
-////				os.close();
-////			}catch (FileNotFoundException e){
-////				e.printStackTrace(); 
-////			}catch (IOException e) {
-////				e.printStackTrace();
-////			} 
+		String resources[] = {"STOCK/fan.jpg","STOCK/hj.jpg","STOCK/hos.jpg","STOCK/jj.jpg","STOCK/uk.jpg"};
+		boolean stockTrue = false;
+		for(int i = 0; i< Administrator.observe_list.size();i++) {
+			if(Administrator.observe_list.get(i).username.equals("stock")) {
+				stockTrue = true;
+			}
+		}
+		if(!stockTrue) {
 //			Users stock = new Users("stock");
 //			Administrator.observe_list.add(stock);
-//			Album ql = new Album("stock album");
-//			stock.addAlbum(ql);
-//			int k = stock.albums.size();
-//			int holder = 0;
-//			for(int i =0;i<k;i++) {
-//				if(stock.albums.get(i).equals("stock album")) {
-//					holder = i;
-//				}
-//			}
-//			Album album = stock.albums.get(holder);
-//			ArrayList<PhotoData> photos = new ArrayList<>();
-//			for(String k1: resources) {
-//				File file = new File(k1);
-//				album.photos.add(new PhotoData(file.toURI()));
-//			}
+//			Collections.sort(Administrator.observe_list,Users.Comparators.NAME);
+////usernames.setItems(Administrator.observe_list);
 //			try {
 //				ObjectOutputStream os= new ObjectOutputStream(new FileOutputStream(Administrator.file));
 //				os.writeObject(new ArrayList<Users>(Administrator.observe_list)); 
 //				os.close();
-//			}catch (FileNotFoundException e1){
-//				e1.printStackTrace(); 
-//			}catch (IOException e1) {
-//				// TODO Auto-generated catch block
-//				e1.printStackTrace();
+//			}catch (FileNotFoundException e){
+//				e.printStackTrace(); 
+//			}catch (IOException e) {
+//				e.printStackTrace();
 //			} 
-//		}
+			Users stock = new Users("stock");
+			Administrator.observe_list.add(stock);
+			Album ql = new Album("stock album");
+			stock.addAlbum(ql);
+			int k = stock.albums.size();
+			int holder = 0;
+			for(int i =0;i<k;i++) {
+				if(stock.albums.get(i).equals("stock album")) {
+					holder = i;
+				}
+			}
+			Album album = stock.albums.get(holder);
+			ArrayList<PhotoData> photos = new ArrayList<>();
+			for(String k1: resources) {
+				File file = new File(k1);
+				album.photos.add(new PhotoData(file.toURI()));
+				System.out.println(album.photos.get(0).location);
+			}
+			try {
+				ObjectOutputStream os= new ObjectOutputStream(new FileOutputStream(Administrator.file));
+				os.writeObject(new ArrayList<Users>(Administrator.observe_list)); 
+				os.close();
+			}catch (FileNotFoundException e1){
+				e1.printStackTrace(); 
+			}catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} 
+		}
 		SceneController.viewLogin();
 		
 		//showMainView();

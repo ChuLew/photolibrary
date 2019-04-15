@@ -40,13 +40,16 @@ public class Administrator {
 	private void addUsers(ActionEvent event) {
 		TextInputDialog dialog = new TextInputDialog("");
 		dialog.initOwner(mainStage); dialog.setTitle("Add User");
-		dialog.setHeaderText("Enter a new username to create");
-		dialog.setContentText("Enter name: ");
+		dialog.setResizable(false);
+		dialog.setHeight(20);
+		dialog.setWidth(20);
+		dialog.setHeaderText("Input New User.");
+		dialog.setContentText("Input name: ");
 		Optional<String> result = dialog.showAndWait();
 		if (result.isPresent())
 		{
 			if(result.get().isEmpty()) {
-				Toast.makeText(mainStage, "No name inputed!", 500, 500, 50);
+				Toast.makeText(mainStage, "No name was entered, try again!", 500, 500, 50);
 				return;
 			}
 			boolean alreadyUsed = false;
@@ -57,7 +60,7 @@ public class Administrator {
 			}
 			if(alreadyUsed || (result.get().equals("admin")))
 			{
-				Toast.makeText(mainStage, "Cannot have duplicate Names!", 500, 500, 500);
+				Toast.makeText(mainStage, "Name alreayd used try again!", 500, 500, 50);
 				return;
 			}
 			else

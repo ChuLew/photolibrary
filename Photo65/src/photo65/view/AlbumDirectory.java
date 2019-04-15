@@ -51,31 +51,32 @@ public class AlbumDirectory {
 	}
 	@FXML 
 	public void addAlbum(ActionEvent e){
-		String aname; 
+		String album_name; 
 		TextInputDialog dialog = new TextInputDialog();
-		dialog.initOwner(mainStage); dialog.setTitle("Create Album");
-		dialog.setHeaderText("Enter album name");
-		dialog.setContentText("Enter name: ");
+		dialog.initOwner(mainStage); dialog.setTitle("Album Creation");
+		dialog.setHeaderText("Input new album name");
+		dialog.setHeight(20);
+		dialog.setWidth(20);
+		dialog.setContentText("Input name: ");
 		Optional<String> result = dialog.showAndWait();
 		if(result.get().isEmpty()) {
-			Toast.makeText(mainStage, "Album name cannot be empty", 500, 500, 500);
+			Toast.makeText(mainStage, "No album name Inputed! try again.", 500, 500, 50);
 			return;
 		}
-		aname = result.get();
-
-		boolean unoriginal= false;
-		Album thisAlbum= new Album(aname); 
+		album_name = result.get();
+		boolean alreadyUsed= false;
+		Album thisAlbum= new Album(album_name); 
 		int jn = thisAlbum.photos.size();
 		for (int i=0; i<useralbums.size(); i++){
-			if(useralbums.get(i).albumName.equals(aname)){
-				unoriginal=true; 
-				Alert alert = new Alert(AlertType.ERROR, "This Album Name Already Exists", ButtonType.CLOSE);
+			if(useralbums.get(i).albumName.equals(album_name)){
+				alreadyUsed=true; 
+				Alert alert = new Alert(AlertType.ERROR, "Album Name Already Exists, No Dupicates!", ButtonType.CLOSE);
 				alert.showAndWait(); 
 				break; 
 			}
 		}
-		if(!unoriginal && !aname.equals("")){
-			Alert alert = new Alert(AlertType.CONFIRMATION, "Add this album: " + aname + "?", ButtonType.YES, ButtonType.NO);
+		if(!alreadyUsed && !album_name.equals("")){
+			Alert alert = new Alert(AlertType.CONFIRMATION, "Add this album: " + album_name + "?", ButtonType.YES, ButtonType.NO);
 			alert.showAndWait();
 
 			if (alert.getResult() == ButtonType.YES) {	
@@ -144,11 +145,11 @@ public class AlbumDirectory {
 			return;
 		}
 		rename = result.get();
-		boolean unoriginal=false; 
+		boolean alreadyUsed=false; 
 		int found = -1; 
 		for (int i=0; i<useralbums.size(); i++){
 			if(useralbums.get(i).albumName.equals(rename)){
-				unoriginal=true; 
+				alreadyUsed=true; 
 				Alert alert = new Alert(AlertType.ERROR, "This Album Name Already Exists", ButtonType.CLOSE);
 				alert.showAndWait(); 
 				break; 
@@ -157,7 +158,7 @@ public class AlbumDirectory {
 				found= i; 
 			}
 		}
-		if(!unoriginal){
+		if(!alreadyUsed){
 			useralbums.get(found).setName(rename);
 			Collections.sort(useralbums,Album.Comparators.NAME);
 			albumList.setItems(useralbums);

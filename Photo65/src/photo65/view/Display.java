@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.StringTokenizer;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -43,6 +44,7 @@ public class Display {
 	@FXML Button returnBtn;
 	@FXML Text caption;
 	@FXML Label dateLab;
+	@FXML Button deleteTag;
 	@FXML private ImageView showPhoto;
 	@FXML AnchorPane rootPane;
 	@FXML ListView<String> tagList;
@@ -77,7 +79,7 @@ public class Display {
 	}
 	@FXML
 	void forward(ActionEvent e) {
-		System.out.println("next");
+		//System.out.println("next");
 		if(index >= Album.photos.size() - 1) {
 			Toast.makeText(mainStage, "Cannot go further", 500, 500, 50);
 			return;
@@ -162,7 +164,7 @@ public class Display {
 	}
 	@FXML
 	void caption(ActionEvent e) {
-		System.out.println("Caption/Recaption");
+		//System.out.println("Caption/Recaption");
 		TextInputDialog dialog = new TextInputDialog();
 		dialog.initOwner(mainStage); dialog.setTitle("Caption");
 		dialog.setHeaderText("Enter Photo Caption");
@@ -175,5 +177,15 @@ public class Display {
 			caption.setText("Caption: " + Photo.caption);
 		}
 	}
-
+	@SuppressWarnings("unlikely-arg-type")
+	@FXML
+	public void removeTag(ActionEvent event) throws IOException{
+		int selected = tagList.getSelectionModel().getSelectedIndex();
+		String str = tagList.getItems().get(selected);
+		StringTokenizer defaultTokenizer = new StringTokenizer(str);	 
+		str =  defaultTokenizer.nextToken();
+		tagList.getItems().remove(selected);
+		Photo.tags.remove(str);
+		
+	}
 }

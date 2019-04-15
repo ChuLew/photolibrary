@@ -39,8 +39,7 @@ public class Gallery {
 	@FXML Button copyBtn;
 	@FXML Button moveBtn;
 	@FXML ScrollPane scrollPane;
-	@FXML
-	public TilePane tilePane;
+	@FXML public TilePane tilePane;
 	@FXML ImageView invisIV;
 	private Stage mainStage;
 	private static Album album;
@@ -52,18 +51,14 @@ public class Gallery {
 	public void start(Stage mainStage) {
 		this.mainStage = mainStage;
 		album = SceneController.currentAlbum;
-		System.out.println(album.albumName);
 		mapper = new HashMap<>();
 		int k = SceneController.currentAlbum.photos.size();
-		System.out.println(k);
+		//System.out.println(k);
 		for(int i = 0; i < k; i++) {
 			PhotoData p = album.photos.get(i);
 			ImageView im = p.getFittedImageView();
-			if(im== null){
-				  System.out.println("why");
-			}
-			else{tilePane.getChildren().add(im);
-			mapper.put(im,p);}
+			tilePane.getChildren().add(im);
+			mapper.put(im,p);
 		}
 	}
 //	public static void addMapper(ImageView im, PhotoData photo) {
@@ -133,7 +128,6 @@ public class Gallery {
 			trans1.play();
 		}
 		selected = im;
-		System.out.println(mapper.get(im).location);
 	}
 	@FXML
 	void remove(ActionEvent e) {

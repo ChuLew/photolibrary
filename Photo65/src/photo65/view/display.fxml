@@ -15,9 +15,10 @@
       <Button fx:id="captionBtn" layoutX="571.0" layoutY="157.0" mnemonicParsing="false" onAction="#caption" prefHeight="66.0" prefWidth="132.0" text="Caption" />
       <Button fx:id="tagBtn" layoutX="571.0" layoutY="232.0" mnemonicParsing="false" onAction="#tag" prefHeight="66.0" prefWidth="132.0" text="Tag" />
       <Button fx:id="returnBtn" layoutX="571.0" layoutY="304.0" mnemonicParsing="false" onAction="#onReturn" prefHeight="66.0" prefWidth="132.0" text="Return" />
-      <ListView fx:id="tagList" layoutX="14.0" layoutY="37.0" prefHeight="398.0" prefWidth="156.0" />
+      <ListView fx:id="tagList" layoutX="14.0" layoutY="37.0" prefHeight="355.0" prefWidth="161.0" />
       <Label fx:id="dateLab" layoutX="231.0" layoutY="13.0" prefHeight="17.0" prefWidth="255.0" text="Date:" />
       <Button fx:id="logoutBtn" layoutX="571.0" layoutY="378.0" mnemonicParsing="false" onAction="#onLogout" prefHeight="66.0" prefWidth="132.0" text="Logout" />
       <Text fx:id="caption" layoutX="293.0" layoutY="440.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="132.0" />
+      <Button fx:id="deleteTag" layoutX="14.0" layoutY="405.0" mnemonicParsing="false" onAction="#removeTag" prefHeight="49.0" prefWidth="161.0" text="Remove Tag" />
    </children>
 </AnchorPane>

@@ -11,19 +11,19 @@
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="439.0" prefWidth="771.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="photo65.view.Search1">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="438.0" prefWidth="842.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="photo65.view.Search1">
    <children>
       <Button fx:id="searchDateBtn" layoutX="99.0" layoutY="172.0" mnemonicParsing="false" onAction="#searchDate" prefHeight="23.0" prefWidth="151.0" text="Search">
          <font>
             <Font name="Leelawadee UI" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="backBtn" layoutX="557.0" layoutY="152.0" mnemonicParsing="false" onAction="#goback" prefHeight="110.0" prefWidth="182.0" text="Go Back">
+      <Button fx:id="backBtn" layoutX="611.0" layoutY="392.0" mnemonicParsing="false" onAction="#goback" prefHeight="27.0" prefWidth="99.0" text="Go Back">
          <font>
             <Font name="Leelawadee UI" size="12.0" />
          </font>
       </Button>
-      <Label layoutX="14.0" layoutY="52.0" prefHeight="27.0" prefWidth="246.0" text="Search by Date Range:">
+      <Label layoutX="14.0" layoutY="52.0" prefHeight="27.0" prefWidth="246.0" text="Input a date to search">
          <font>
             <Font name="Leelawadee UI" size="12.0" />
          </font>
@@ -38,7 +38,7 @@
             <Font name="Leelawadee UI" size="12.0" />
          </font>
       </Label>
-      <Label layoutX="8.0" layoutY="199.0" prefHeight="15.0" prefWidth="151.0" text="Search by Tags:">
+      <Label layoutX="8.0" layoutY="199.0" prefHeight="15.0" prefWidth="151.0" text="Search via Tags:">
          <font>
             <Font name="Leelawadee UI" size="12.0" />
          </font>
@@ -58,7 +58,7 @@
             <Font name="Leelawadee UI" size="12.0" />
          </font>
       </TextField>
-      <Button fx:id="createBtn" layoutX="557.0" layoutY="21.0" mnemonicParsing="false" onAction="#createAlbum" prefHeight="116.0" prefWidth="182.0" text="Create Album W/ Results" />
+      <Button fx:id="createBtn" layoutX="260.0" layoutY="394.0" mnemonicParsing="false" onAction="#createAlbum" prefHeight="15.0" prefWidth="182.0" text="Create Album W/ Results" />
       <DatePicker fx:id="begDate" layoutX="99.0" layoutY="96.0" prefHeight="26.0" prefWidth="151.0" />
       <DatePicker fx:id="endingDate" layoutX="99.0" layoutY="137.0" prefHeight="26.0" prefWidth="151.0" />
       <Button fx:id="searchTagBtn" layoutX="57.0" layoutY="353.0" mnemonicParsing="false" onAction="#searchTag" prefHeight="23.0" prefWidth="166.0" text="Search">
@@ -79,14 +79,14 @@
       </TextField>
       <ChoiceBox fx:id="firstTag" layoutX="57.0" layoutY="227.0" prefHeight="26.0" prefWidth="166.0" />
       <Button fx:id="logicBtn" layoutX="9.0" layoutY="270.0" mnemonicParsing="false" onAction="#swapLogic" prefHeight="26.0" prefWidth="38.0" text="&amp;" />
-      <Button fx:id="logoutBtn" layoutX="557.0" layoutY="284.0" mnemonicParsing="false" onAction="#logout" prefHeight="116.0" prefWidth="182.0" text="Logout">
+      <Button fx:id="logoutBtn" layoutX="478.0" layoutY="392.0" mnemonicParsing="false" onAction="#logout" prefHeight="27.0" prefWidth="99.0" text="Logout">
          <font>
             <Font name="Leelawadee UI" size="12.0" />
          </font>
       </Button>
-      <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" layoutX="260.0" layoutY="16.0" prefHeight="422.0" prefWidth="270.0">
+      <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" layoutX="260.0" layoutY="19.0" prefHeight="333.0" prefWidth="571.0">
          <content>
-            <TilePane fx:id="tilePane" hgap="15.0" prefHeight="400.0" prefWidth="416.0">
+            <TilePane fx:id="tilePane" hgap="15.0" prefHeight="320.0" prefWidth="570.0">
                <padding>
                   <Insets bottom="20.0" left="45.0" right="45.0" top="20.0" />
                </padding>

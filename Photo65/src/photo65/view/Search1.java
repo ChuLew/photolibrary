@@ -30,104 +30,201 @@ import javafx.stage.Stage;
 
 
 public class Search1 {
-	@FXML ChoiceBox<Object> tagChoice1;
-	@FXML ChoiceBox<Object> tagChoice2;
-	@FXML AnchorPane rootPane;
-	@FXML ScrollPane scrollPane;
-	@FXML TilePane tilePane;
-	@FXML TextField inputTag1;
-	@FXML TextField inputTag2;
-	@FXML DatePicker startDate;
-	@FXML DatePicker endDate;
-	@FXML Button logoutBtn;
-	@FXML Button backBtn;
-	@FXML Button tagsearchBtn;
-	@FXML Button datesearchBtn;
-	@FXML Button logicBtn;
-	
-	public String selectedItem;
-	private Set<String> tags;
-	private Stage mainStage;
-	private boolean logic;
+	/**
+	 * datepicker for begining date for search
+	 */
+	@FXML 
+	DatePicker begDate;
+	/**
+	 * date picker for end date for search
+	 */
+	@FXML 
+	DatePicker endingDate;
+	/**
+	 * logout button
+	 */
+	@FXML 
+	Button logoutBtn;
+	/**
+	 * back button
+	 */
+	@FXML 
+	Button backBtn;
+	/**
+	 *button for searching with tags 
+	 */
+	@FXML
+	Button searchTagBtn;
+	/**
+	 * button for searching with date
+	 */
+	@FXML 
+	Button searchDateBtn;
+	/**
+	 * button for switching between and or or
+	 */
+	@FXML 
+	Button logicBtn;
+	/**
+	 * button for picking choice of first tag
+	 */
+	@FXML 
+	ChoiceBox<Object> firstTag;
+	/**
+	 * button for picking choice for second tag
+	 */
+	@FXML
+	ChoiceBox<Object> secondTag;
+	/**
+	 * rootPane
+	 */
+	@FXML 
+	AnchorPane rootPane;
+	@FXML 
+	ScrollPane scrollPane;
+	@FXML 
+	TilePane tilePane;
+	/**
+	 * textfield for entering tag value
+	 */
+	@FXML 
+	TextField firstTagField;
+	/**
+	 * 
+	 *tagfield for entering second tag value
+	 */
+	@FXML 
+	TextField secondTagField;
+	/**
+	 * observableList that holds albums
+	 */
 	public static ObservableList<Album> useralbums= FXCollections.observableArrayList(); 
+	/**
+	 * variable that tracks user which is set from other class
+	 */
 	private Users User;
+	/**
+	 * string that holds selected item
+	 */
+	public String itemSelect;
+	private Stage mainStage;
+	/**
+	 * arraylist of search results
+	 */
 	private ArrayList<PhotoData> result;
-    public void start(Stage mainStage)
-	{
+    private boolean logic;
+    /**
+     * set that holds tags
+     */
+	private Set<String> tags;
+	/**
+	 * initializing set
+	 * @param mainStage
+	 */
+	public void start(Stage mainStage){
 		this.mainStage = mainStage;
 		User = SceneController.currentUser;
 		tags = new HashSet<>();
-		for(Album a: User.albums) {
-			for(PhotoData p: a.photos) {
-				for(String t: p.tags.keySet()) {
-					tags.add(t);
+		for(Album albumLoop: User.albums) {
+			for(PhotoData phto: albumLoop.photos) {
+				for(String tent: phto.tags.keySet()) {
+					tags.add(tent);
 				}
 			}	
 		}
-		tagChoice1.setItems(FXCollections.observableArrayList(tags.toArray()));
-		tagChoice2.setItems(FXCollections.observableArrayList(tags.toArray()));
+		firstTag.setItems(FXCollections.observableArrayList(tags.toArray()));
+		secondTag.setItems(FXCollections.observableArrayList(tags.toArray()));
 		logic = true; 
 	}
+	/**
+	 * switches logic to and or or and text for button
+	 * @param e
+	 */
+	@FXML
+    void swapLogic(ActionEvent e) {
+    	logic = !logic;
+    	if(logic) {
+    		logicBtn.setText("&");
+    	}else {
+    		logicBtn.setText("+");
+    	}
+    }
+	/**
+	 * logout method
+	 * @param e
+	 * @throws IOException
+	 */
     @FXML
     void logout(ActionEvent e) throws IOException
 	{
     	SceneController.viewLogin();
 	}
+    /**
+     * go back to album directory method
+     * @param e
+     * @throws IOException
+     */
     @FXML
     void goback(ActionEvent e) throws IOException
     {
     	SceneController.viewAlbumDirectory();
     }
+    /**
+     * method that searches for photos dates
+     * @param e
+     * @throws IOException
+     */
     @FXML
-    void searchDate(ActionEvent e) throws IOException
-    {
-   	if(startDate.getValue() == null || endDate.getValue() == null) {
-    		Toast.makeText(mainStage, "Cannot leave dates empty", 500, 500, 500);
+    void searchDate(ActionEvent e) throws IOException {
+   	if(begDate.getValue() == null || endingDate.getValue() == null) {
+    		Toast.makeText(mainStage, "Must fill out both dates", 500, 500, 50);
     		return;
     	}
-    	Calendar sd = GregorianCalendar.from(startDate.getValue().atStartOfDay(ZoneId.systemDefault()));
-    	Calendar ed = GregorianCalendar.from(endDate.getValue().atStartOfDay(ZoneId.systemDefault()));	
+    	Calendar sd = GregorianCalendar.from(begDate.getValue().atStartOfDay(ZoneId.systemDefault()));
+    	Calendar ed = GregorianCalendar.from(endingDate.getValue().atStartOfDay(ZoneId.systemDefault()));	
     	if(ed.compareTo(sd) < 0 ) {
-    		Toast.makeText(mainStage, "Invalid time inputs", 500, 500, 500);
+    		Toast.makeText(mainStage, "Start that can not be after end date!", 500, 500, 50);
     		return;
     	}
     	result = new ArrayList<>();
     	tilePane.getChildren().clear();
-    	System.out.println(sd.getTime().toString() + ed.getTime().toString());
-    	for(Album a: User.albums) {
-    		for(PhotoData p: a.photos) {
-    			Calendar c = p.getDate();
-    			System.out.println(c.getTime());
-    			if(c.compareTo(sd) >= 0 && c.compareTo(ed) <= 0) {
-    				result.add(p);
-    				tilePane.getChildren().add(p.getFittedImageView());
+    	for(Album albumloop: User.albums) {
+    		for(PhotoData photoloop: albumloop.photos) {
+    			Calendar cal = photoloop.getDate();
+    			if(cal.compareTo(sd) >= 0 && cal.compareTo(ed) <= 0) {
+    				result.add(photoloop);
+    				tilePane.getChildren().add(photoloop.getFittedImageView());
     			}
     		}
     	}
+    	Toast.makeText(mainStage, "Search complete", 500, 500, 50);
     }
+    /**
+     * method that searches for photos by tag
+     * @param e
+     */
     @FXML
     void searchTag(ActionEvent e) {
-    	if(inputTag1.getText().isEmpty() || tagChoice1.getValue() == null) {
-    		Toast.makeText(mainStage, "Tag 1 must be set", 500, 500, 500);
+    	if(firstTagField.getText().isEmpty() || firstTag.getValue() == null) {
+    		Toast.makeText(mainStage, "Must fill out first tag to search", 500, 500, 50);
     		return;
     	}   
-    	String tag1 = (String)tagChoice1.getValue();
-    	String val1 = inputTag1.getText();
-     	Predicate<PhotoData> logic1 = l -> {
-    		if(!l.tags.containsKey(tag1)) 
+    	String valueFirst = firstTagField.getText();
+     	String tagFirst = (String)firstTag.getValue();
+    	Predicate<PhotoData> logic1 = l -> {
+    		if(!l.tags.containsKey(tagFirst)) 
     			return false;
-    		return l.tags.get(tag1).equals(val1);
+    		return l.tags.get(tagFirst).equals(valueFirst);
     	};
     	Predicate<PhotoData> logic2;
-    	String tag2;
-    	String val2;
-    	if(!(inputTag2.getText().isEmpty() || tagChoice2.getValue() == null)) {
-    		tag2 = (String)tagChoice2.getValue();
-    		val2 = inputTag2.getText();
+    	String tagSecond,valueSecond;
+    	if(!(secondTagField.getText().isEmpty() || secondTag.getValue() == null)) {
+    		valueSecond = secondTagField.getText();
+    		tagSecond = (String)secondTag.getValue();
     		logic2 = l -> {
-        		if(!l.tags.containsKey(tag2)) 
+        		if(!l.tags.containsKey(tagSecond)) 
         			return false;
-        		return l.tags.get(tag2).equals(val2);
+        		return l.tags.get(tagSecond).equals(valueSecond);
         	};
         	if(logic) {
         		logic1 = logic1.and(logic2);
@@ -137,16 +234,16 @@ public class Search1 {
     	}
     	tilePane.getChildren().clear();
     	result = new ArrayList<>();
-    	for(Album a: User.albums) {
-			for(PhotoData p: a.photos) {
-				System.out.println(logic1.test(p));
-				if(logic1.test(p)) {
-					result.add(p);
-					tilePane.getChildren().add(p.getFittedImageView());
+    	for(Album albumloop: User.albums) {
+			for(PhotoData photoloop: albumloop.photos) {
+				if(logic1.test(photoloop)) {
+					result.add(photoloop);
+					tilePane.getChildren().add(photoloop.getFittedImageView());
 				}
 			}	
 		}
-    }  
+    	Toast.makeText(mainStage, "Tag Search Complete", 500, 500, 50);
+    }   
     @SuppressWarnings("unlikely-arg-type")
 	@FXML 
     void createAlbum(ActionEvent e) {
@@ -195,14 +292,6 @@ public class Search1 {
 			
 		}
     }
-    @FXML
-    void swapLogic(ActionEvent e) {
-    	logic = !logic;
-    	if(logic) {
-    		logicBtn.setText("&");
-    	}else {
-    		logicBtn.setText("+");
-    	}
-    }
+    
 
 }

@@ -23,32 +23,92 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
+/**
+ * 
+ * @author mitchlew
+ *
+ */
 public class AlbumDirectory {
+	/**
+	 * Root pane
+	 */
 	@FXML AnchorPane rootPane;
+	/**
+	 * button to logout
+	 */
 	@FXML Button logoutBtn;
+	/**
+	 * button to open album
+	 */
 	@FXML Button openAlbumBtn;
+	/**
+	 * button to create album
+	 */
 	@FXML Button createAlbumBtn;
+	/**
+	 * button to delete album
+	 */
 	@FXML Button deleteAlbumBtn;
+	/**
+	 * button to rename album
+	 */
 	@FXML Button renameAlbumBtn;
+	/**
+	 * button to search for photos
+	 */
 	@FXML Button searchBtn;
+	/**
+	 * textfield to name album
+	 */
 	@FXML private TextField albumName;
+	/**
+	 * user variable set from login page to access that users information
+	 */
 	public static Users user;
+	/**
+	 * listview that displays albums
+	 */
 	@FXML ListView<Album> albumList;
+	/**
+	 * list that stores albums and written to file
+	 */
 	public static ObservableList<Album> useralbums= FXCollections.observableArrayList(); 
+	/**
+	 * mainstage
+	 */
 	private Stage mainStage;
+	/**
+	 * variable to hold albums new name
+	 */
 	Album renameAlb; 
+	/**
+	 * iniatilizing method
+	 * @param primaryStage
+	 */
 	public void start(Stage primaryStage) {
 		this.mainStage = primaryStage;
 		albumList.setItems(useralbums);
 	}
+	/**
+	 *method that switches scene to login
+	 * @throws IOException
+	 */
 	public void onLogout() throws IOException {
 		SceneController.viewLogin();
 	}
+	/**
+	 * switches scene to search
+	 * @param e
+	 * @throws IOException
+	 */
 	@FXML
 	public void search(ActionEvent e) throws IOException {
 		SceneController.viewSearch();
 	}
+	/**
+	 * adds album 
+	 * @param e
+	 */
 	@FXML 
 	public void addAlbum(ActionEvent e){
 		String album_name; 
@@ -98,6 +158,10 @@ public class AlbumDirectory {
 		}
 		albumName.clear();
 	}
+	/**
+	 * deletes selected album
+	 * @param E
+	 */
 	@FXML 
 	void deleteAlbum(ActionEvent E) {
 		Album deleted= albumList.getSelectionModel().getSelectedItem(); 
@@ -125,19 +189,26 @@ public class AlbumDirectory {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						} 
-						Toast.makeText(mainStage, "Album removed", 500, 500, 500);
+						Toast.makeText(mainStage, "Album removed", 500, 500, 50);
+					}else {
+						Toast.makeText(mainStage, "Album was not removed", 500, 500, 50);
 					}
 				}
 			}
-			Toast.makeText(mainStage, "Album removed", 500, 500, 50);
 		}
 	}
+	/**
+	 * used to rename albums
+	 * @param event
+	 */
 	public void rename(ActionEvent event) {
 		String rename; 
 		renameAlb = albumList.getSelectionModel().getSelectedItem();
 		TextInputDialog dialog = new TextInputDialog();
 		dialog.initOwner(mainStage); dialog.setTitle("Rename Album");
 		dialog.setHeaderText("Enter desired new album Name");
+		dialog.setHeight(20);
+		dialog.setWidth(20);
 		dialog.setContentText("Enter new name: ");
 		Optional<String> result = dialog.showAndWait();
 		if(result.get().isEmpty()) {
@@ -176,6 +247,11 @@ public class AlbumDirectory {
 			} 
 		}
 	}
+	/**
+	 * switchess scene to gallery, displays photos from albums in that gallery
+	 * @param e
+	 * @throws IOException
+	 */
 	@FXML
 	void openAlbum(ActionEvent e) throws IOException {
 		if(albumList.getSelectionModel().getSelectedItem()==null) {

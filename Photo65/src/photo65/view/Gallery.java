@@ -1,6 +1,5 @@
 package photo65.view;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -10,8 +9,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-
-import javax.imageio.ImageIO;
 
 import javafx.animation.ScaleTransition;
 import javafx.collections.FXCollections;
@@ -24,7 +21,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -32,28 +28,70 @@ import javafx.scene.layout.TilePane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
-
-
 public class Gallery {
+	/**
+	 * anchorpane
+	 */
 	@FXML AnchorPane rootPane;
+	/**
+	 * button to logout
+	 */
 	@FXML Button logBtn;
+	/**
+	 * buttun to return to album Directory
+	 */
 	@FXML Button retBtn;
+	/**
+	 * display photo button
+	 */
 	@FXML Button disBtn;
+	/**
+	 * add photto button
+	 */
 	@FXML Button addBtn;
+	/**
+	 * remove photo button
+	 */
 	@FXML Button remBtn;
+	/**
+	 * copy photo button
+	 */
 	@FXML Button copyBtn;
+	/**
+	 * move photo button
+	 */
 	@FXML Button moveBtn;
+	/**
+	 * Scroll through photos on scroll pane
+	 */
 	@FXML ScrollPane scrollPane;
+	/**
+	 * keep the photos in a tile pane
+	 */
 	@FXML public TilePane tilePane;
+	/**
+	 * display photos on imageview
+	 */
 	@FXML ImageView invisIV;
+	/**
+	 * mainstage
+	 */
 	private Stage mainStage;
+	/**
+	 * album variable to keep track of where photo belongs to
+	 */
 	private static Album album;
 	private ImageView selected = null;
+	/**
+	 * list of photos
+	 */
 	public static ObservableList<PhotoData> all_photos = FXCollections.observableArrayList();
 	private HashMap<ImageView, PhotoData> photoMap;
 	
-	
+	/**
+	 * initializing method for photos
+	 * @param mainStage
+	 */
 	public void start(Stage mainStage) {
 		this.mainStage = mainStage;
 		album = SceneController.currentAlbum;
@@ -67,13 +105,24 @@ public class Gallery {
 			photoMap.put(im,p);
 		}
 	}
-
+	/**
+	 * logout method
+	 * @throws IOException
+	 */
 	public void onLogout() throws IOException {
 		SceneController.viewLogin();
 	}
+	/**
+	 * return to previous page method
+	 */
 	public void onReturn() throws IOException{
 		SceneController.viewAlbumDirectory();
 	}
+	/**
+	 * switch to display photo method
+	 * @param e
+	 * @throws IOException
+	 */
 	@FXML
 	void display(ActionEvent e) throws IOException {
 		if(selected == null) {
@@ -83,6 +132,10 @@ public class Gallery {
 		SceneController.currentPhoto = photoMap.get(selected);
 		SceneController.displayPhoto();
 	}
+	/**
+	 * method for adding photos
+	 * @param e
+	 */
 	@FXML
 	void add(ActionEvent e) {
 		FileChooser fileChooser = new FileChooser();	
@@ -107,6 +160,10 @@ public class Gallery {
 			} 
 		}
 	}
+	/**
+	 * enhances image on imagepress by user to signify it has been selected
+	 * @param me
+	 */
 	@FXML
 	void imagePress(MouseEvent me) {
 		if(!(me.getTarget() instanceof ImageView)) {
@@ -129,6 +186,10 @@ public class Gallery {
 		}
 		selected = im;
 	}
+	/**
+	 * removes photo
+	 * @param e
+	 */
 	@FXML
 	void remove(ActionEvent e) {
 		if(selected == null) {
@@ -159,6 +220,10 @@ public class Gallery {
 			}
 		}	
 	}
+	/**
+	 * copies photo to another album
+	 * @param e
+	 */
 	@FXML
 	void copy(ActionEvent e) {
 		List<String> alist = new ArrayList<String>();
@@ -202,6 +267,10 @@ public class Gallery {
 			} 
 		}
 	}
+	/**
+	 * moves photo to another album
+	 * @param e
+	 */
 	@FXML
 	void move(ActionEvent e) {
 		List<String> alist = new ArrayList<String>();

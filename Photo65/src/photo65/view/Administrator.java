@@ -20,22 +20,54 @@ import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
-
+/** 
+ * Controller class associated with adminPage.fxml
+ * @author mitchlew
+ *
+ */
 public class Administrator {
+	/**
+	 * button to add user
+	 */
 	@FXML private Button add;
+	/**
+	 * button to delete user 
+	 */
 	@FXML private Button delete;
+	/**
+	 * button to logout
+	 */
 	@FXML private Button logout;
+	/**
+	 * field to input new user
+	 */
 	@FXML private TextField newUsers;
+	/**
+	 * listview to show users present in system
+	 */
 	@FXML
 	public ListView<Users> usernames;
 	private Stage mainStage;
+	/**
+	 * list that will contain all users and their info
+	 */
 	public static ObservableList<Users> observe_list = FXCollections.observableArrayList();
-	
+	/**
+	 * file information will be written to across sessions
+	 */
 	public static String file = "DirectoryOfUsers.bin";
 	@FXML
+	/**
+	 * function that switches scenes to loginPage when button is pressed
+	 * @param event
+	 */
 	private void on_logout(ActionEvent event) throws IOException{
 		SceneController.viewLogin();
 	}
+	/**
+	 * function for adding users
+	 * @param event
+	 */
 	@FXML
 	private void addUsers(ActionEvent event) {
 		TextInputDialog dialog = new TextInputDialog("");
@@ -81,7 +113,10 @@ public class Administrator {
 			}
 		}
 	}
-
+/**
+ * function for deleting user
+ * @param event
+ */
 	@FXML
 	private void deleteUsers(ActionEvent event) {
 		Alert alert = new Alert(AlertType.CONFIRMATION, "Delete: " + usernames.getSelectionModel().getSelectedItem().username + "?", ButtonType.YES, ButtonType.NO);
@@ -106,6 +141,10 @@ public class Administrator {
 			} 
 		}
 	}
+	/**
+	 * starting method when initializing class
+	 * @param primaryStage
+	 */
 	public void start(Stage primaryStage) {
 		usernames.setItems(observe_list);
 	}

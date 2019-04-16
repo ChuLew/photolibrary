@@ -8,13 +8,32 @@ import javafx.stage.Stage;
 import photo65.Photos;
 import photo65.view.Login;
 
-
+/**
+ * specific class for switching scenes
+ * @author mitchlew
+ *
+ */
 public class SceneController {
+	/**
+	 * stage
+	 */
 	public static Stage primaryStage;
+	/**
+	 * holds currentuser for other scenes to track 
+	 */
 	public static Users currentUser;
+	/**
+	 * holds current album for other scenes to track
+	 */
 	public static Album currentAlbum;
+	/**
+	 * holds current photo for other scenes to track
+	 */
 	public static PhotoData currentPhoto;
-	
+	/**
+	 * switches scene to login page
+	 * @throws IOException
+	 */
 	public static void viewLogin() throws IOException
 	{
 		FXMLLoader loader = new FXMLLoader();   
@@ -26,7 +45,10 @@ public class SceneController {
 		primaryStage.setScene(scene);
 		primaryStage.show(); 
 	}
-
+	/**
+	 * switches scene to admin page
+	 * @throws IOException
+	 */
 	public static void viewAdmin() throws IOException {
 		FXMLLoader loader = new FXMLLoader();   
 		loader.setLocation(Photos.class.getResource("view/adminPage.fxml"));
@@ -38,7 +60,10 @@ public class SceneController {
 		primaryStage.show(); 
 		
 	}
-
+	/**
+	 * switches scene to album directory page
+	 * @throws IOException
+	 */
 	public static void viewAlbumDirectory() throws IOException {
 		FXMLLoader loader = new FXMLLoader();   
 		loader.setLocation(Photos.class.getResource("view/albumDirectory.fxml"));
@@ -50,6 +75,10 @@ public class SceneController {
 		primaryStage.show(); 
 		
 	}
+	/**
+	 * switches scene to gallery page
+	 * @throws IOException
+	 */
 	public static void viewGallery() throws IOException{
 		FXMLLoader loader = new FXMLLoader();   
 		loader.setLocation(Photos.class.getResource("view/photoGallery.fxml"));
@@ -60,7 +89,10 @@ public class SceneController {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
-
+	/**
+	 * switches scene to display page for photos
+	 * @throws IOException
+	 */
 	public static void displayPhoto() throws IOException {
 		
 		FXMLLoader loader = new FXMLLoader();   
@@ -72,7 +104,10 @@ public class SceneController {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
-
+	/**
+	 * switches scene to search page
+	 * @throws IOException
+	 */
 	public static void viewSearch() throws IOException {
 		
 		FXMLLoader loader = new FXMLLoader();   

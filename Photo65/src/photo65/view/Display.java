@@ -31,25 +31,84 @@ import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Pair;
-
+/**
+ * displays photo for user and allows that person to add descriptors to photo
+ * @author mitchlew
+ *
+ */
 public class Display {
+	/**
+	 * observable list
+	 */
 	private ObservableList<String> observelist;
+	/**
+	 * local photodata variable for class to use, is set by gallery
+	 */
 	PhotoData Photo;
+	/**
+	 * local album to use is set but gallery
+	 */
 	static Album Album;
+	/**
+	 * an index
+	 */
 	int index;
+	/**
+	 * button for logout
+	 */
 	@FXML Button logoutBtn;
+	/**
+	 * button for next photo
+	 */
 	@FXML Button nextBtn;
+	/**
+	 *  button for previous photo
+	 */
 	@FXML Button backBtn;
+	/**
+	 * button for adding caption
+	 */
 	@FXML Button captionBtn;
+	/**
+	 * button for adding tag
+	 */
 	@FXML Button tagBtn;
+	/**
+	 * button to return to album
+	 */
 	@FXML Button returnBtn;
+	/**
+	 * text field that is updated when caption is applied
+	 */
 	@FXML Text caption;
+	/**
+	 * label that is updated when photo is present
+	 */
 	@FXML Label dateLab;
+	/**
+	 * button to delete tags when selected
+	 */
 	@FXML Button deleteTag;
+	/**
+	 * shows photos present in an image view
+	 */
 	@FXML private ImageView showPhoto;
+	/**
+	 * anchorpane
+	 */
 	@FXML AnchorPane rootPane;
+	/**
+	 * listview that displays tags
+	 */
 	@FXML ListView<String> tagList;
+	/**
+	 * stage mainstage
+	 */
 	private Stage mainStage;
+	/**
+	 * initiailzing method
+	 * @param primaryStage
+	 */
 	public void start(Stage primaryStage) {
 		this.mainStage = primaryStage;
 		Photo = SceneController.currentPhoto;
@@ -67,19 +126,32 @@ public class Display {
 		}
 		tagList.setItems(observelist);
 	}
+	/**
+	 * logout method
+	 * @param e
+	 * @throws IOException
+	 */
 	@FXML
 	void onLogout(ActionEvent e) throws IOException
 	{
 		SceneController.viewLogin();
 	}
+	/**
+	 * switches back to gallery scene
+	 * @param e
+	 * @throws IOException
+	 */
 	@FXML
 	void onReturn(ActionEvent e) throws IOException
 	{
 		SceneController.viewGallery();
 	}
+	/**
+	 * switches to next photo to be displayed
+	 * @param e
+	 */
 	@FXML
 	void forward(ActionEvent e) {
-		//System.out.println("next");
 		if(index >= Album.photos.size() - 1) {
 			Toast.makeText(mainStage, "Reached end of photos", 500, 500, 50);
 			return;
@@ -88,10 +160,14 @@ public class Display {
 		SceneController.currentPhoto = Photo;
 		Image i = Photo.getImage();
 		showPhoto.setImage(i);
-		caption.setText("Caption: " + Photo.caption);
 		dateLab.setText("Date: " + Photo.getLastModifiedDate().toString());
+		caption.setText("Caption: " + Photo.caption);
 		updateList();
 	}
+	/**
+	 * switches to previous photo to be displayed
+	 * @param e
+	 */
 	@FXML
 	void back(ActionEvent e) {
 		if(index<=0){
@@ -107,7 +183,9 @@ public class Display {
 		updateList();
 		
 	}
-	
+	/**
+	 * updates observelist 
+	 */
 	private void updateList() {
 		observelist.clear();
 		observelist.add("(tag) , (value)");
@@ -125,6 +203,10 @@ public class Display {
 			e1.printStackTrace();
 		} 
 	}
+	/**
+	 * adds tags to photo
+	 * @param e
+	 */
 	@FXML
 	void tag(ActionEvent e) {
 		 Dialog<Pair<String, String>> dialog = new Dialog<>();
@@ -157,26 +239,42 @@ public class Display {
 		        if(pair.getKey().isEmpty() || pair.getValue().isEmpty()) {
 		        	Toast.makeText(mainStage, "No text inputed! try again!", 500, 500, 50);
 		        	return;
-		        }
+		        }else {
+		        Toast.makeText(mainStage, "Succesfully added tag!", 500, 500, 50);
+	        	
 		        Photo.tags.put(pair.getKey(), pair.getValue());
+		        
 		        updateList();
+		        }
+		        
 		    });
 	}
+	/**
+	 * adds caption to photo
+	 * @param e
+	 */
 	@FXML
 	void caption(ActionEvent e) {
 		TextInputDialog dialog = new TextInputDialog();
 		dialog.initOwner(mainStage);
 		dialog.setTitle("Caption");
-		dialog.setHeaderText("Enter Photo Caption");
-		dialog.setContentText("Enter caption: ");
+		dialog.setHeaderText("Enter Caption for Photo");
+		dialog.setContentText("Enter the Caption: ");
 		Optional<String> result = dialog.showAndWait();
 		
-		if (result.isPresent())
-		{
+		if (result.isPresent()){
 			Photo.caption = new String(result.get());
 			caption.setText("Caption: " + Photo.caption);
+		}{
+			Toast.makeText(mainStage, "No text inputed! No caption was entered!", 500, 500, 50);
+        	
 		}
 	}
+	/**
+	 * removes tag from taglist for specific photos
+	 * @param event
+	 * @throws IOException
+	 */
 	@SuppressWarnings("unlikely-arg-type")
 	@FXML
 	public void removeTag(ActionEvent event) throws IOException{

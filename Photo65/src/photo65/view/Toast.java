@@ -11,6 +11,12 @@ import javafx.animation.KeyFrame;
 	import javafx.stage.Stage;
 	import javafx.stage.StageStyle;
 	import javafx.util.Duration;
+	/**
+	 * class pulled from online for transitions and UI enhancement
+	 * @author alcoolis 
+	 * stackoverflowurl: https://stackoverflow.com/questions/26792812/android-toast-equivalent-in-javafx
+	 *
+	 */
 	public final class Toast
 	{
 	    public static void makeText(Stage ownerStage, String toastMsg, int toastDelay, int fadeInDelay, int fadeOutDelay)

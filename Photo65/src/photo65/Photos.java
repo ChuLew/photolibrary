@@ -40,19 +40,6 @@ public class Photos extends Application {
 			}
 		}
 		if(!stockTrue) {
-//			Users stock = new Users("stock");
-//			Administrator.observe_list.add(stock);
-//			Collections.sort(Administrator.observe_list,Users.Comparators.NAME);
-////usernames.setItems(Administrator.observe_list);
-//			try {
-//				ObjectOutputStream os= new ObjectOutputStream(new FileOutputStream(Administrator.file));
-//				os.writeObject(new ArrayList<Users>(Administrator.observe_list)); 
-//				os.close();
-//			}catch (FileNotFoundException e){
-//				e.printStackTrace(); 
-//			}catch (IOException e) {
-//				e.printStackTrace();
-//			} 
 			Users stock = new Users("stock");
 			Administrator.observe_list.add(stock);
 			Album ql = new Album("stock album");
@@ -69,18 +56,7 @@ public class Photos extends Application {
 			for(String k1: resources) {
 				File file = new File(k1);
 				album.photos.add(new PhotoData(file.toURI()));
-				System.out.println(album.photos.get(0).location);
-			}
-			try {
-				ObjectOutputStream os= new ObjectOutputStream(new FileOutputStream(Administrator.file));
-				os.writeObject(new ArrayList<Users>(Administrator.observe_list)); 
-				os.close();
-			}catch (FileNotFoundException e1){
-				e1.printStackTrace(); 
-			}catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} 
+				}
 		}
 		SceneController.viewLogin();
 		

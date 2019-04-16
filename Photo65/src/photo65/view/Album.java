@@ -12,20 +12,44 @@ import java.util.Comparator;
  */
 public class Album implements Serializable, Comparable<Album>{
 	private static final long serialVersionUID = -1503934156878954986L;
+	/**
+	 * name of album
+	 */
 	public String albumName; 
+	/**
+	 * list of photos
+	 */
 	public ArrayList<PhotoData> photos; 
+	/**
+	 * earliest photo date
+	 */
 	Calendar min; 
+	/**
+	 * most recent photo date
+	 */
 	Calendar max; 
+	/**
+	 * constructor that initializes photo list
+	 * @param name
+	 */
 	public Album(String name){
 		albumName= name; 
 		photos = new ArrayList<PhotoData>();
 	}
-	public Album(String n, Collection<PhotoData> col) {
-		this(n);
-		for(PhotoData p : col) {
-			photos.add(new PhotoData(p));
+	/**
+	 * album constructor with a list of photos inputed
+	 * @param n
+	 * @param col
+	 */
+	public Album(String name, Collection<PhotoData> collection) {
+		this(name);
+		for(PhotoData photoloop : collection) {
+			photos.add(new PhotoData(photoloop));
 		}
 	}
+	/**
+	 * toString method returns a string with date 
+	 */
 	public String toString(){
 		int size; 
 		Calendar min= null; 
@@ -56,13 +80,26 @@ public class Album implements Serializable, Comparable<Album>{
 		String representation= albumName + "\n" + "Photos: " + size + more; 
 		return representation; 
 	}
-
+/**
+ * adds a new album to list
+ * @param name
+ */
 	public void setName(String name){
 		albumName= name; 
 	}
+	/**
+	 * compare albums names
+	 * @param album
+	 * @return
+	 */
 	public int compareTo(Album album){
 		return this.albumName.compareTo(album.albumName); 
 	} 
+	/**
+	 * compare albums using comparator class
+	 * @author mitchlew
+	 *
+	 */
 	public static class Comparators{
 		public static Comparator<Album> NAME= new Comparator<Album>(){
 			@Override

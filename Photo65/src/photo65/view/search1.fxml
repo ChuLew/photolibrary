@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="439.0" prefWidth="771.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="photo65.view.Search1">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="439.0" prefWidth="771.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="photo65.view.Search1">
    <children>
-      <Button fx:id="datesearchBtn" layoutX="99.0" layoutY="172.0" mnemonicParsing="false" onAction="#searchDate" prefHeight="23.0" prefWidth="151.0" text="Search">
+      <Button fx:id="searchDateBtn" layoutX="99.0" layoutY="172.0" mnemonicParsing="false" onAction="#searchDate" prefHeight="23.0" prefWidth="151.0" text="Search">
          <font>
             <Font name="Leelawadee UI" size="12.0" />
          </font>
@@ -53,31 +53,31 @@
             <Font name="Leelawadee UI" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="inputTag2" layoutX="57.0" layoutY="330.0" prefHeight="23.0" prefWidth="166.0">
+      <TextField fx:id="secondTagField" layoutX="57.0" layoutY="330.0" prefHeight="23.0" prefWidth="166.0">
          <font>
             <Font name="Leelawadee UI" size="12.0" />
          </font>
       </TextField>
       <Button fx:id="createBtn" layoutX="557.0" layoutY="21.0" mnemonicParsing="false" onAction="#createAlbum" prefHeight="116.0" prefWidth="182.0" text="Create Album W/ Results" />
-      <DatePicker fx:id="startDate" layoutX="99.0" layoutY="96.0" prefHeight="26.0" prefWidth="151.0" />
-      <DatePicker fx:id="endDate" layoutX="99.0" layoutY="137.0" prefHeight="26.0" prefWidth="151.0" />
-      <Button fx:id="tagsearchBtn" layoutX="58.0" layoutY="365.0" mnemonicParsing="false" onAction="#searchTag" prefHeight="23.0" prefWidth="166.0" text="Search">
+      <DatePicker fx:id="begDate" layoutX="99.0" layoutY="96.0" prefHeight="26.0" prefWidth="151.0" />
+      <DatePicker fx:id="endingDate" layoutX="99.0" layoutY="137.0" prefHeight="26.0" prefWidth="151.0" />
+      <Button fx:id="searchTagBtn" layoutX="57.0" layoutY="353.0" mnemonicParsing="false" onAction="#searchTag" prefHeight="23.0" prefWidth="166.0" text="Search">
          <font>
             <Font name="Leelawadee UI" size="12.0" />
          </font>
       </Button>
-      <ChoiceBox fx:id="tagChoice2" layoutX="57.0" layoutY="297.0" prefHeight="26.0" prefWidth="166.0" />
+      <ChoiceBox fx:id="secondTag" layoutX="57.0" layoutY="297.0" prefHeight="26.0" prefWidth="166.0" />
       <Label layoutX="10.0" layoutY="232.0" text="Tag 1:">
          <font>
             <Font name="Leelawadee UI" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="inputTag1" layoutX="57.0" layoutY="260.0" prefHeight="23.0" prefWidth="166.0">
+      <TextField fx:id="firstTagField" layoutX="57.0" layoutY="260.0" prefHeight="23.0" prefWidth="166.0">
          <font>
             <Font name="Leelawadee UI" size="12.0" />
          </font>
       </TextField>
-      <ChoiceBox fx:id="tagChoice1" layoutX="57.0" layoutY="227.0" prefHeight="26.0" prefWidth="166.0" />
+      <ChoiceBox fx:id="firstTag" layoutX="57.0" layoutY="227.0" prefHeight="26.0" prefWidth="166.0" />
       <Button fx:id="logicBtn" layoutX="9.0" layoutY="270.0" mnemonicParsing="false" onAction="#swapLogic" prefHeight="26.0" prefWidth="38.0" text="&amp;" />
       <Button fx:id="logoutBtn" layoutX="557.0" layoutY="284.0" mnemonicParsing="false" onAction="#logout" prefHeight="116.0" prefWidth="182.0" text="Logout">
          <font>
